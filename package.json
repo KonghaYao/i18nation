@@ -12,5 +12,8 @@
   "dependencies": {
     "glob": "^11.0.0",
     "gogocode": "^1.0.55"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.5"
   }
 }
