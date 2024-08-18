@@ -4,13 +4,11 @@ import { createJSReplacer } from "./javascript";
 import { createHTMLReplacer } from "./html";
 
 export const createReplacer = (config: ReplacerConfig) => {
-    const htmlReplacer = createHTMLReplacer(config)
     const jsReplacer = createJSReplacer(config)
-
+    const htmlReplacer = createHTMLReplacer(config)
     return (ast: GoGoAST) => {
-        htmlReplacer(ast.find("<template></template>"))
-        jsReplacer(ast.find('<script></script>'))
-        jsReplacer(ast.find('<script setup></script>'))
+        htmlReplacer(ast)
+        jsReplacer(ast)
         return ast.root()
     }
 }
