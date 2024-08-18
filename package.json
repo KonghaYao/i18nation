@@ -1,20 +1,24 @@
 {
-  "name": "i18nation",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "glob": "^11.0.0",
-    "gogocode": "^1.0.55"
-  },
-  "devDependencies": {
-    "@types/node": "^22.4.0",
-    "vitest": "^2.0.5"
-  }
+    "name": "i18nation",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    },
+    "scripts": {
+        "test": "vitest ./test/*"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "glob": "^11.0.0",
+        "gogocode": "^1.0.55"
+    },
+    "devDependencies": {
+        "@types/node": "^22.4.0",
+        "vitest": "^2.0.5"
+    }
 }
