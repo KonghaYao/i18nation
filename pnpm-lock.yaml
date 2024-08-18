@@ -13,11 +13,14 @@ importers:
         version: 11.0.0
       gogocode:
         specifier: ^1.0.55
-        version: 1.0.55(vue@3.4.38)
+        version: 1.0.55(vue@3.4.38(typescript@5.5.4))
     devDependencies:
       '@types/node':
         specifier: ^22.4.0
         version: 22.4.0
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
       vitest:
         specifier: ^2.0.5
         version: 2.0.5(@types/node@22.4.0)
@@ -801,6 +804,11 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
+  typescript@5.5.4:
+    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   undici-types@6.19.6:
     resolution: {integrity: sha512-e/vggGopEfTKSvj4ihnOLTsqhrKRN3LeO6qSN/GxohhuRv8qH9bNQ4B8W7e/vFL+0XTnmHPB4/kegunZGA4Org==}
 
@@ -1181,11 +1189,11 @@ snapshots:
       '@vue/shared': 3.4.38
       csstype: 3.1.3
 
-  '@vue/server-renderer@3.4.38(vue@3.4.38)':
+  '@vue/server-renderer@3.4.38(vue@3.4.38(typescript@5.5.4))':
     dependencies:
       '@vue/compiler-ssr': 3.4.38
       '@vue/shared': 3.4.38
-      vue: 3.4.38
+      vue: 3.4.38(typescript@5.5.4)
 
   '@vue/shared@3.0.11': {}
 
@@ -1350,14 +1358,14 @@ snapshots:
       once: 1.4.0
       path-is-absolute: 1.0.1
 
-  gogocode@1.0.55(vue@3.4.38):
+  gogocode@1.0.55(vue@3.4.38(typescript@5.5.4)):
     dependencies:
       '@babel/parser': 7.25.3
       glob: 7.2.3
       hyntax-yx: 1.0.9
       indent-string: 4.0.0
       recast-yx: 0.18.12
-      vue3-browser-compiler-yx: 1.0.4(vue@3.4.38)
+      vue3-browser-compiler-yx: 1.0.4(vue@3.4.38(typescript@5.5.4))
     transitivePeerDependencies:
       - vue
 
@@ -1623,6 +1631,8 @@ snapshots:
 
   tslib@2.6.3: {}
 
+  typescript@5.5.4: {}
+
   undici-types@6.19.6: {}
 
   uniq@1.0.1: {}
@@ -1691,7 +1701,7 @@ snapshots:
       - supports-color
       - terser
 
-  vue3-browser-compiler-yx@1.0.4(vue@3.4.38):
+  vue3-browser-compiler-yx@1.0.4(vue@3.4.38(typescript@5.5.4)):
     dependencies:
       '@babel/parser': 7.25.3
       '@babel/types': 7.25.2
@@ -1708,15 +1718,17 @@ snapshots:
       postcss-modules: 4.0.0(postcss@8.1.10)
       postcss-selector-parser: 6.0.4
       source-map: 0.6.1
-      vue: 3.4.38
+      vue: 3.4.38(typescript@5.5.4)
 
-  vue@3.4.38:
+  vue@3.4.38(typescript@5.5.4):
     dependencies:
       '@vue/compiler-dom': 3.4.38
       '@vue/compiler-sfc': 3.4.38
       '@vue/runtime-dom': 3.4.38
-      '@vue/server-renderer': 3.4.38(vue@3.4.38)
+      '@vue/server-renderer': 3.4.38(vue@3.4.38(typescript@5.5.4))
       '@vue/shared': 3.4.38
+    optionalDependencies:
+      typescript: 5.5.4
 
   which@2.0.2:
     dependencies:
