@@ -1,0 +1,3 @@
+[submodule "gogocode"]
+	path = gogocode
+	url = https://github.com/KonghaYao/gogocode.git
