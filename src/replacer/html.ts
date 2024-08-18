@@ -20,18 +20,28 @@ function getTextNodeContent(ast: any) {
 }
 export const createReplacer = (config: ReplacerConfig) => {
     return (ast: GoGoAST) => ast.find('<$_$0>$_$content</$_$1>').each(node => {
-            // @ts-ignore
-            const astNode = node[0].nodePath.node
-            // @ts-ignore
-            const children = astNode.content.children
-            // @ts-ignore
-            const textNodes = children.filter(child => child.nodeType === 'text')
-            console.log(textNodes)
-            if (textNodes.length) {
-                textNodes.forEach((ast: any) => {
-                    if (!getTextNodeContent(ast).trim()) return false
-                    updateTextNode(ast, config.stringReplacer)
-                })
+        // @ts-ignore
+        const astNode = node[0].nodePath.node
+        // @ts-ignore
+        const children = astNode.content.children
+        // @ts-ignore
+        const textNodes = children.filter(child => child.nodeType === 'text')
+        console.log(textNodes)
+        if (!textNodes.length) return
+
+        textNodes.forEach((ast: any) => {
+            const text = getTextNodeContent(ast)
+            if (!text.trim()) return false
+            if (isVueTemplateSnippets(text)) {
+                updateTextNode(ast, config.templateReplacer)
+                return;
             }
-        }).root()
+            updateTextNode(ast, config.stringReplacer)
+        })
+    }).root()
+}
+function isVueTemplateSnippets(html: string) {
+    const reg = /\{\{\s*(.*?)\s*\}\}/g;
+
+    return reg.test(html)
 }

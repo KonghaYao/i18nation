@@ -45,17 +45,16 @@ export default {
 </script>
 `
 
-test('vue script 测试', async () => {
+test('vue template 测试', async () => {
     const data = await sourceCodeReplacer('index.vue', sourceCodeWithTemplate, {
         stringReplacer(str) {
             console.log(str)
             return str.toUpperCase()
         },
         templateReplacer(str) {
-            return str.toUpperCase()
+            return `测${str}试`
         },
     })
-    console.log(data)
     expect(data).include(
         '404 RIGHTTHISWAY'
     )
