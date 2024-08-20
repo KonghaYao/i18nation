@@ -15,11 +15,15 @@
     "license": "ISC",
     "dependencies": {
         "@konghayao/i18n-cli": "^1.20.0",
+        "@langchain/core": "^0.2.27",
+        "@langchain/openai": "^0.2.7",
         "glob": "^11.0.0",
-        "gogocode": "^1.0.55"
+        "gogocode": "^1.0.55",
+        "md5": "^2.3.0"
     },
     "devDependencies": {
         "@types/node": "^22.4.0",
+        "i18next": "^23.14.0",
         "typescript": "^5.5.4",
         "vitest": "^2.0.5"
     }

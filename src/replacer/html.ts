@@ -41,7 +41,9 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
             if(i.key.content === '\r') return; // 过滤掉换行符
             const attrName = i.key.content
             const value = i.value.content
-            const newValue = config.attrReplacer(attrName.toString(), value)
+            const newValue = config.attrReplacer(attrName.toString(), value, (name) => {
+                i.key.content = name
+            })
             i.value.content = newValue
             i.value.endPosition = i.value.startPosition + newValue.length
         })
@@ -60,10 +62,10 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
             const text = getTextNodeContent(ast)
             if (!text.trim()) return false
             if (isVueTemplateSnippets(text)) {
-                updateTextNode(ast, config.templateReplacer)
+                updateTextNode(ast, (text) => config.templateReplacer(text, 'html'))
                 return;
             }
-            updateTextNode(ast, config.stringReplacer)
+            updateTextNode(ast, (text) => config.stringReplacer(text, 'html'))
         })
     }).root()
 }

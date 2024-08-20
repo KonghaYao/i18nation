@@ -8,13 +8,17 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             // 忽略 jsx 的 attr 中的字符串
             if (nodePath.parentPath.node.type === 'JSXAttribute') {
                 const attrName = nodePath.parentPath.node.name.name
-                return `'${config.attrReplacer(attrName.toString(), matchedText)}'`
+                const replaceAttrName = (name: string) => {
+                    /** @ts-ignore */
+                    nodePath.parentPath.node.name.name = name
+                }
+                return `'${config.attrReplacer(attrName.toString(), matchedText, replaceAttrName)}'`
             }
             // console.log(nodePath)
             if (nodePath.parentPath.node.type === 'MemberExpression') {
                 return `'${matchedText}'`
             }
-            return `'${config.stringReplacer(matchedText)}'`
+            return `${config.stringReplacer(matchedText, 'js')}`
         })
         // \` 不作为 jsx 标签属性的边界
         .find('`$_$str`').each((item) => {
@@ -23,7 +27,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 if (nodePath.parentPath.node.type === 'MemberExpression') {
                     return sourceCode
                 } else {
-                    return config.templateReplacer(sourceCode)
+                    return config.templateReplacer(sourceCode, 'js')
                 }
             })
         })

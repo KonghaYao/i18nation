@@ -11,16 +11,28 @@ importers:
       '@konghayao/i18n-cli':
         specifier: ^1.20.0
         version: 1.20.0(ink@4.4.1(react@18.3.1))(openai@4.56.0(zod@3.23.8))(react@18.3.1)(typescript@5.5.4)(ws@8.18.0)
+      '@langchain/core':
+        specifier: ^0.2.27
+        version: 0.2.27(langchain@0.2.16(openai@4.56.0(zod@3.23.8))(ws@8.18.0))(openai@4.56.0(zod@3.23.8))
+      '@langchain/openai':
+        specifier: ^0.2.7
+        version: 0.2.7(langchain@0.2.16(openai@4.56.0(zod@3.23.8))(ws@8.18.0))
       glob:
         specifier: ^11.0.0
         version: 11.0.0
       gogocode:
         specifier: ^1.0.55
         version: 1.0.55(vue@3.4.38(typescript@5.5.4))
+      md5:
+        specifier: ^2.3.0
+        version: 2.3.0
     devDependencies:
       '@types/node':
         specifier: ^22.4.0
         version: 22.4.0
+      i18next:
+        specifier: ^23.14.0
+        version: 23.14.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -58,6 +70,10 @@ packages:
     resolution: {integrity: sha512-iLTJKDbJ4hMvFPgQwwsVoxtHyWpKKPBrxkANrSYewDPaPpT5py5yeVkgPIJ7XYXhndxJpaA3PyALSXQ7u8e/Dw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+
+  '@babel/runtime@7.25.0':
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
+    engines: {node: '>=6.9.0'}
 
   '@babel/types@7.25.2':
     resolution: {integrity: sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==}
@@ -625,6 +641,9 @@ packages:
   character-entities@2.0.2:
     resolution: {integrity: sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==}
 
+  charenc@0.0.2:
+    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
+
   check-error@2.1.1:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
     engines: {node: '>= 16'}
@@ -718,6 +737,9 @@ packages:
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
+
+  crypt@0.0.2:
+    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -1016,6 +1038,9 @@ packages:
     resolution: {integrity: sha512-T7HXVm1dEt6NFNQaYuzLfhyM+jiK1Z3elYUOz5ulf9fCG/vfJ+F51mPFaoBX4J1naaqIx82NCaVtK8L1oq5TwA==}
     engines: {node: '>=6.11.1', npm: '>=5.3.0'}
 
+  i18next@23.14.0:
+    resolution: {integrity: sha512-Y5GL4OdA8IU2geRrt2+Uc1iIhsjICdHZzT9tNwQ3TVqdNzgxHToGCKf/TPRP80vTCAP6svg2WbbJL+Gx5MFQVA==}
+
   icss-replace-symbols@1.1.0:
     resolution: {integrity: sha512-chIaY3Vh2mh2Q3RGXttaDIzeiPvaVXJ+C4DAh/w3c37SKZ/U6PGMmuicR2EQQp9bKG8zLMCl7I+PtIoOOPp8Gg==}
 
@@ -1072,6 +1097,9 @@ packages:
 
   is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
+
+  is-buffer@1.1.6:
+    resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
 
   is-buffer@2.0.5:
     resolution: {integrity: sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==}
@@ -1447,6 +1475,9 @@ packages:
   markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
 
+  md5@2.3.0:
+    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
+
   mdast-util-find-and-replace@2.2.2:
     resolution: {integrity: sha512-MTtdFRz/eMDHXzeK6W3dO7mXUlF82Gom4y0oOgvHhh/HXZAGvIQDUvQ0SuUx+j2tv44b8xTHOm8K/9OoRFnXKw==}
 
@@ -1815,6 +1846,9 @@ packages:
   recast-yx@0.18.12:
     resolution: {integrity: sha512-hYM2QgEbYxmevT66lDhQv+24erth+RbQfCFjft89cvHjJzRNyhf4QY1UtDs91IMh3duRhX1vLvPNoc1XOBMbIQ==}
     engines: {node: '>= 4'}
+
+  regenerator-runtime@0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
   registry-auth-token@5.0.2:
     resolution: {integrity: sha512-o/3ikDxtXaA59BmZuZrJZDJv8NMDGSj+6j6XaeBmHw8eY1i1qd9+6H+LjVvQXx3HN6aRCGa1cUdJ9RaJZUugnQ==}
@@ -2318,6 +2352,10 @@ snapshots:
   '@babel/parser@7.25.3':
     dependencies:
       '@babel/types': 7.25.2
+
+  '@babel/runtime@7.25.0':
+    dependencies:
+      regenerator-runtime: 0.14.1
 
   '@babel/types@7.25.2':
     dependencies:
@@ -2928,6 +2966,8 @@ snapshots:
 
   character-entities@2.0.2: {}
 
+  charenc@0.0.2: {}
+
   check-error@2.1.1: {}
 
   ci-info@3.9.0: {}
@@ -3017,6 +3057,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  crypt@0.0.2: {}
 
   cssesc@3.0.0: {}
 
@@ -3311,6 +3353,10 @@ snapshots:
 
   hyntax-yx@1.0.9: {}
 
+  i18next@23.14.0:
+    dependencies:
+      '@babel/runtime': 7.25.0
+
   icss-replace-symbols@1.1.0: {}
 
   icss-utils@5.1.0(postcss@8.1.10):
@@ -3374,6 +3420,8 @@ snapshots:
       - utf-8-validate
 
   is-arrayish@0.2.1: {}
+
+  is-buffer@1.1.6: {}
 
   is-buffer@2.0.5: {}
 
@@ -3560,6 +3608,12 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   markdown-table@3.0.3: {}
+
+  md5@2.3.0:
+    dependencies:
+      charenc: 0.0.2
+      crypt: 0.0.2
+      is-buffer: 1.1.6
 
   mdast-util-find-and-replace@2.2.2:
     dependencies:
@@ -4083,6 +4137,8 @@ snapshots:
       esprima: 4.0.1
       private: 0.1.8
       source-map: 0.6.1
+
+  regenerator-runtime@0.14.1: {}
 
   registry-auth-token@5.0.2:
     dependencies:
