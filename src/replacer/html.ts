@@ -36,8 +36,9 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
         // @ts-ignore
         const astNode = node[0].nodePath.node
 
-        // @ts-ignore 标签属性遍历
-        astNode.content?.attributes.forEach(i => {
+        // @ts-ignore 标签属性遍历，当标签元素不包含属性的时候，astNode.content.attributes为undefined，需要使用 ?. 判断一下forEach
+        astNode.content?.attributes?.forEach(i => {
+            if(i.key.content === '\r') return; // 过滤掉换行符
             const attrName = i.key.content
             const value = i.value.content
             const newValue = config.attrReplacer(attrName.toString(), value)
