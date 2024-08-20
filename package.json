@@ -14,6 +14,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@konghayao/i18n-cli": "^1.20.0",
         "glob": "^11.0.0",
         "gogocode": "^1.0.55"
     },
