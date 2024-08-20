@@ -5,26 +5,34 @@ import { sourceCodeReplacer } from './sourceCodeReplacer';
 import { isOneWord } from './utils';
 export interface ConfigFileType extends ReplacerConfig {
     entry: string | string[]
+    /**
+     * 配置替换的属性
+     * @default {
+     *   alt: true,
+     *   title: true,
+     *   placeholder: true
+     * }
+     */
     replaceAttr?: Record<string, boolean>
 }
 
-const createDefaultConfig = (config: ConfigFileType) => {
+export const createDefaultConfig = (config: ConfigFileType) => {
     const replaceAttr: Record<string, boolean> = Object.assign({
         alt: true,
         title: true,
         placeholder: true
     }, config.replaceAttr ?? {})
     const defaultConfig: ReplacerConfig = {
-        stringReplacer(str) {
-            if (isOneWord(str)) return str
-            return config.stringReplacer(str)
+        stringReplacer(str, lang) {
+            if (isOneWord(str)) return `"${str}"`
+            return config.stringReplacer(str, lang)
         },
-        templateReplacer(str) {
-            return config.templateReplacer(str)
+        templateReplacer(str, lang) {
+            return config.templateReplacer(str, lang)
         },
-        attrReplacer(attrName, str) {
+        attrReplacer(attrName, str, replaceAttrName) {
             if (replaceAttr[attrName.toLocaleLowerCase()]) {
-                return config.attrReplacer(attrName, str)
+                return config.attrReplacer(attrName, str, replaceAttrName)
             }
             return str
         }
@@ -42,3 +50,4 @@ export default async (config: ConfigFileType) => {
 }
 export * from './sourceCodeReplacer'
 export * from './utils'
+export * from './presets/index'

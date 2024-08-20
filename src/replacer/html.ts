@@ -40,7 +40,9 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
         astNode.content?.attributes.forEach(i => {
             const attrName = i.key.content
             const value = i.value.content
-            const newValue = config.attrReplacer(attrName.toString(), value)
+            const newValue = config.attrReplacer(attrName.toString(), value, (name) => {
+                i.key.content = name
+            })
             i.value.content = newValue
             i.value.endPosition = i.value.startPosition + newValue.length
         })
@@ -59,10 +61,10 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
             const text = getTextNodeContent(ast)
             if (!text.trim()) return false
             if (isVueTemplateSnippets(text)) {
-                updateTextNode(ast, config.templateReplacer)
+                updateTextNode(ast, (text) => config.templateReplacer(text, 'html'))
                 return;
             }
-            updateTextNode(ast, config.stringReplacer)
+            updateTextNode(ast, (text) => config.stringReplacer(text, 'html'))
         })
     }).root()
 }
