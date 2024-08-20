@@ -3,7 +3,7 @@ import { glob } from 'glob'
 import fs from 'fs'
 import { sourceCodeReplacer } from './sourceCodeReplacer';
 import { isOneWord } from './utils';
-interface ConfigFileType extends ReplacerConfig {
+export interface ConfigFileType extends ReplacerConfig {
     entry: string | string[]
     replaceAttr?: Record<string, boolean>
 }

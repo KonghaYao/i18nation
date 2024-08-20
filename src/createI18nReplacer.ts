@@ -1,3 +1,4 @@
+import { ConfigFileType } from "."
 import { ReplacerConfig } from "./replacer/interface"
 
 export const createI18nReplacer = (config: ConfigFileType) => {
