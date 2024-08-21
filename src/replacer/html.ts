@@ -1,5 +1,6 @@
 import { GoGoAST } from "gogocode";
-import { ReplacerConfig } from "./interface";
+import { ReplacerConfig, Tools } from "./interface";
+import { quoteString } from "../utils";
 function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
     if (ast.nodeType === 'text') {
         const oldContent = getTextNodeContent(ast)
@@ -38,7 +39,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
 
         // @ts-ignore 标签属性遍历，当标签元素不包含属性的时候，astNode.content.attributes为undefined，需要使用 ?. 判断一下forEach
         astNode.content?.attributes?.forEach(i => {
-            if(i.key.content === '\r') return; // 过滤掉换行符
+            if (i.key.content === '\r') return; // 过滤掉换行符
             const attrName = i.key.content
             const value = i.value.content
             const newValue = config.attrReplacer(attrName.toString(), value, (name) => {
@@ -65,7 +66,12 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                 updateTextNode(ast, (text) => config.templateReplacer(text, 'html'))
                 return;
             }
-            updateTextNode(ast, (text) => config.stringReplacer(text, 'html'))
+            updateTextNode(ast, (text) => {
+                const tools: Tools = {
+                    wrapperChar: ""
+                }
+                return quoteString(config.stringReplacer(text, 'html', tools), tools.wrapperChar)
+            })
         })
     }).root()
 }

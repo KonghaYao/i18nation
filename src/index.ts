@@ -23,9 +23,9 @@ export const createDefaultConfig = (config: ConfigFileType) => {
         placeholder: true
     }, config.replaceAttr ?? {})
     const defaultConfig: ReplacerConfig = {
-        stringReplacer(str, lang) {
-            if (isOneWord(str)) return `"${str}"`
-            return config.stringReplacer(str, lang)
+        stringReplacer(str, lang, tools) {
+            if (isOneWord(str)) return str
+            return config.stringReplacer(str, lang, tools)
         },
         templateReplacer(str, lang) {
             return config.templateReplacer(str, lang)

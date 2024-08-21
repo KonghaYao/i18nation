@@ -7,10 +7,11 @@ export const VuePresets = (context: {
     createStringSlot: (key: string) => string
 }) => {
     const config: ReplacerConfig = {
-        stringReplacer(str, lang) {
+        stringReplacer(str, lang, tools) {
             const hash = md5(str)
             context.json[hash] = str
 
+            tools.wrapperChar = ''
             switch (lang) {
                 case 'html':
                     return `{{${context.createTranslateCode(hash)}}}`

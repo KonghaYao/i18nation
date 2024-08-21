@@ -4,7 +4,7 @@ import sourceCodeWithTemplate from './samples/sample.vue?raw'
 
 describe('vue template 测试', async () => {
     const data = await sourceCodeReplacer('index.vue', sourceCodeWithTemplate, {
-        stringReplacer(str) {
+        stringReplacer(str, lang, tools) {
             return str.toUpperCase()
         },
         templateReplacer(str) {
@@ -18,7 +18,7 @@ describe('vue template 测试', async () => {
             return str
         }
     })
-    // console.log(data)
+    console.log(data)
     it('纯文本测试', () => {
         expect(data).include(
             '404 RIGHTTHISWAY'

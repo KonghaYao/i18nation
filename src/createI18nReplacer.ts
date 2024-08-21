@@ -4,11 +4,11 @@ import { ReplacerConfig } from "./replacer/interface"
 export const createI18nReplacer = (config: ConfigFileType) => {
     let cache = []
     const defaultConfig: ReplacerConfig = {
-        stringReplacer(str) {
-            return config.stringReplacer(str)
+        stringReplacer(...args) {
+            return config.stringReplacer(...args)
         },
-        templateReplacer(str) {
-            return config.templateReplacer(str)
+        templateReplacer(...args) {
+            return config.templateReplacer(...args)
         },
         attrReplacer(attrName, str) {
             return str

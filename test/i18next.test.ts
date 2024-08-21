@@ -1,5 +1,5 @@
 import { createDefaultConfig, sourceCodeReplacer, VuePresets } from '../src'
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, test } from 'vitest'
 import sourceCodeWithTemplate from './samples/i18next.vue?raw'
 
 describe('vue template 测试', async () => {
@@ -17,6 +17,14 @@ describe('vue template 测试', async () => {
             }
         })
     }))
-    console.log(data)
-    console.log(json)
+    // console.log(data)
+    // console.log(json)
+    test('所有 key 在代码中存在', () => {
+        Object.keys(json).forEach(key => {
+            expect(data).include(key)
+        })
+    })
+    test("alt 属性被替换", () => {
+        expect(data).include(`:alt='i18next.t("`)
+    })
 });

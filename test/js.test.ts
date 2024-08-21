@@ -8,7 +8,7 @@ describe('纯 js 测试', async () => {
     const data = await sourceCodeReplacer('index.js', sourceCode, {
         stringReplacer(str) {
             if (isOneWord(str)) return str
-            return str.toUpperCase() + "_REPLACED"
+            return `${str.toUpperCase() + "_REPLACED"}`
         },
         templateReplacer(str) {
             return `\$t(${str})`
@@ -18,7 +18,7 @@ describe('纯 js 测试', async () => {
             return str
         }
     })
-    // console.log(data)
+    console.log(data)
     it('纯文本 单个单词测试', () => {
         expect(data).include(`const info = "hello";`)
         expect(data).include(`const data = "useful-info";`)
@@ -37,4 +37,8 @@ describe('纯 js 测试', async () => {
         expect(data).include('obj[`name_${info}`]')
     })
 
+    it('普通字符串不被选中', () => {
+        expect(data).include(`"hello"`)
+        expect(data).include(`"TEST_KEY"`)
+    })
 });

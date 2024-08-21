@@ -4,9 +4,10 @@ import sourceCode from './samples/sample.jsx?raw'
 
 describe('jsx 测试', async () => {
     const data = await sourceCodeReplacer('index.jsx', sourceCode, {
-        stringReplacer(str) {
+        stringReplacer(str, lang) {
             if (isOneWord(str)) return str
-            return str.toUpperCase() + "_REPLACED"
+            return `${str.toUpperCase() + "_REPLACED"}`
+
         },
         templateReplacer(str) {
             return `\$t(${str})`
