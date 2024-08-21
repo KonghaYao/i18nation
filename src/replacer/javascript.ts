@@ -17,7 +17,8 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     /** @ts-ignore */
                     nodePath.parentPath.node.name.name = name
                 }
-                return quoteString(config.attrReplacer(attrName.toString(), matchedText, replaceAttrName), tools.wrapperChar)
+                tools.replaceAttrName = replaceAttrName
+                return quoteString(config.attrReplacer(attrName.toString(), matchedText, tools), tools.wrapperChar)
             }
             // console.log(nodePath)
             if (nodePath.parentPath.node.type === 'MemberExpression') {

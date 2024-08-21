@@ -42,8 +42,12 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
             if (i.key.content === '\r') return; // 过滤掉换行符
             const attrName = i.key.content
             const value = i.value.content
-            const newValue = config.attrReplacer(attrName.toString(), value, (name) => {
-                i.key.content = name
+            const newValue = config.attrReplacer(attrName.toString(), value, {
+                // TODO 暂时无用
+                wrapperChar: "''",
+                replaceAttrName(name) {
+                    i.key.content = name
+                }
             })
             i.value.content = newValue
             i.value.endPosition = i.value.startPosition + newValue.length
