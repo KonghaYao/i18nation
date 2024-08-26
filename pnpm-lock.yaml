@@ -8,15 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@konghayao/i18n-cli':
-        specifier: ^1.20.0
-        version: 1.20.0(ink@4.4.1(react@18.3.1))(openai@4.56.0(zod@3.23.8))(react@18.3.1)(typescript@5.5.4)(ws@8.18.0)
-      '@langchain/core':
-        specifier: ^0.2.27
-        version: 0.2.27(langchain@0.2.16(openai@4.56.0(zod@3.23.8))(ws@8.18.0))(openai@4.56.0(zod@3.23.8))
-      '@langchain/openai':
-        specifier: ^0.2.7
-        version: 0.2.7(langchain@0.2.16(openai@4.56.0(zod@3.23.8))(ws@8.18.0))
       glob:
         specifier: ^11.0.0
         version: 11.0.0
@@ -27,6 +18,18 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
     devDependencies:
+      '@konghayao/i18n-cli':
+        specifier: ^1.20.0
+        version: 1.20.0(ink@4.4.1(react@18.3.1))(openai@4.56.0(zod@3.23.8))(react@18.3.1)(typescript@5.5.4)(ws@8.18.0)
+      '@langchain/core':
+        specifier: ^0.2.27
+        version: 0.2.27(langchain@0.2.16(openai@4.56.0(zod@3.23.8))(ws@8.18.0))(openai@4.56.0(zod@3.23.8))
+      '@langchain/openai':
+        specifier: ^0.2.7
+        version: 0.2.7(langchain@0.2.16(openai@4.56.0(zod@3.23.8))(ws@8.18.0))
+      '@types/md5':
+        specifier: ^2.3.5
+        version: 2.3.5
       '@types/node':
         specifier: ^22.4.0
         version: 22.4.0
@@ -412,6 +415,9 @@ packages:
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  '@types/md5@2.3.5':
+    resolution: {integrity: sha512-/i42wjYNgE6wf0j2bcTX6kuowmdL/6PE4IVitMpm2eYKBUuYCprdcWVK+xEF0gcV6ufMCRhtxmReGfc6hIK7Jw==}
 
   '@types/mdast@3.0.15':
     resolution: {integrity: sha512-LnwD+mUEfxWMa1QpDraczIn6k0Ee3SMicuYSSzS6ZYl2gKS09EClnJYGd8Du6rfc5r/GZEk5o1mRb8TaTj03sQ==}
@@ -2701,6 +2707,8 @@ snapshots:
       '@types/ms': 0.7.34
 
   '@types/estree@1.0.5': {}
+
+  '@types/md5@2.3.5': {}
 
   '@types/mdast@3.0.15':
     dependencies:
