@@ -33,7 +33,9 @@ export const sourceCodeReplacer = async (
       },
     });
   } else if (ext === ".astro") {
+    /** @ts-ignore */
     replacer = AstroPlugin.createReplacer(config);
+    /** @ts-ignore */
     ast = AstroPlugin.createAST(filePath, code, config);
   }
   const result = replacer!(ast!);

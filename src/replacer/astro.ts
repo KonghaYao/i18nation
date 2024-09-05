@@ -1,10 +1,11 @@
+import { ReplacerConfig } from "./interface";
 import { createJSReplacer } from "./javascript";
 import { createReplacer as createJSXReplacer } from "./jsx";
 import $, { GoGoAST } from "gogocode";
 
 const frontmatterRegex = /^\n*?---\s*\n([\s\S]*?)\n---\s*/;
 
-function separateAstroSyntax(astroCode) {
+function separateAstroSyntax(astroCode: string): AstroAST {
   let match = astroCode.match(frontmatterRegex);
   let jsContent = "";
   let jsxContent = astroCode;
@@ -20,7 +21,10 @@ function separateAstroSyntax(astroCode) {
     jsx: jsxContent.trim(),
   };
 }
-
+interface AstroAST {
+  js: string;
+  jsx: string;
+}
 export default {
   name: "astro",
   createAST(filePath: string, code: string, config: ReplacerConfig) {
@@ -29,7 +33,7 @@ export default {
   createReplacer(config: ReplacerConfig) {
     const jsReplacer = createJSReplacer(config);
     const jsxReplacer = createJSXReplacer(config);
-    return (ast) => {
+    return (ast: AstroAST) => {
       const jsx = $(`<>\n${ast.jsx}\n</>`);
       const js = $(ast.js);
       jsxReplacer(jsx);

@@ -3,14 +3,16 @@
     "version": "1.0.0",
     "description": "",
     "main": "./dist/index.js",
+    "files": [
+        "dist"
+    ],
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
         "access": "public"
     },
     "scripts": {
         "test": "vitest ./test/*",
-        "build": "tsc -p tsconfig.build.json",
-        "prepublish": "pnpm build"
+        "build": "tsc -p tsconfig.build.json"
     },
     "keywords": [],
     "author": "",
