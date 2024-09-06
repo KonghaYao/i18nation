@@ -9,6 +9,7 @@
             <!-- 需要抽取 alt 属性 -->
             <img class="err-msg" alt='important message' src='./index.jpg' /> 
             <img class="err-msg" :alt='"important message"' src='./index.jpg' /> 
+
         </div>
     </section>
 </template>

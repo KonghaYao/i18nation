@@ -34,4 +34,8 @@ export interface ReplacerConfig {
      * @returns 替换后的属性值字符串。
      */
     attrReplacer: (attrName: string, str: string, tools: Tools) => string;
+    ignore: {
+        HTMLTag?: string[]
+        regexp?: RegExp[]
+    }
 }

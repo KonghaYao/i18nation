@@ -1,8 +1,15 @@
+import g from 'url_info'
+import k from '../info'
+import d from '@/info'
 export default () => {
     // 单个单词：外部扩展为不被选中
     const info = "hello";
     const data = "useful-info";
     const enumWord = "TEST_KEY";
+    const percent = "100%";
+    const color = "#300";
+    const ext = ".woff2";
+    const void_str = "   ";
 
     // 多个单词：必定选中
     const replaced = "hello world";
@@ -25,6 +32,12 @@ export default () => {
                 <p class="err-msg">Soury,&nbsp;&nbsp;&nbsp; Invisible~</p>
                 <p class="err-msg"> {"info"} </p>
                 <p class="err-msg"> prefix{"info"}suffix </p>
+                <pre class="err-msg"> prefix{"info"}suffix </pre>
+                <code class={"err-msg" + 323423}> code info </code>
+                <style>
+
+                    info mation
+                </style>
                 {/* <!-- 需要抽取 alt 属性 --> */}
                 <img
                     class="err-msg"
