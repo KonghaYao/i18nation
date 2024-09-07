@@ -27,7 +27,7 @@ describe("vue template 测试", async () => {
       }),
     })
   );
-  console.log(data)
+  // console.log(data)
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
@@ -58,7 +58,7 @@ describe("jsx template 测试", async () => {
       }),
     })
   );
-//   console.log(data);
+  console.log(data);
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
@@ -69,7 +69,7 @@ describe("jsx template 测试", async () => {
     expect(data).include(`>{i18next.t`);
   });
   test("alt 属性被替换", () => {
-    expect(data).include(`alt={i18next.t("`);
+    expect(data).include(`alt={i18next.t("`).includes('placeholder={i18next.t').includes("title={i18next.t");
   });
   test("import 保持", () => {
     expect(data).include(`url_info`).includes("../info").includes("@/info");
@@ -77,6 +77,13 @@ describe("jsx template 测试", async () => {
   test("特殊字符保持", () => {
     expect(data).include(".woff2").include("#300").includes("100%");
   });
+  test("保持 URL 模板", () => {
+    expect(data).include('https://jsdelivr.deno.dev/npm/font-analyze@1.3.3/data/${name}')
+  })
+  test("保持特殊标签内的模板字符串", () => {
+    expect(data).include("` @font-face {font-family: '${fontFamily()}';src: url(${").includes('"font-feature-settings": `"${i}" 0`,')
+  })
+
 });
 describe("astro template 测试", async () => {
   const json = {};

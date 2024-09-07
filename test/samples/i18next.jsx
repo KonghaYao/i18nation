@@ -1,6 +1,6 @@
-import g from 'url_info'
-import k from '../info'
-import d from '@/info'
+import g from "url_info";
+import k from "../info";
+import d from "@/info";
 export default () => {
     // 单个单词：外部扩展为不被选中
     const info = "hello";
@@ -24,6 +24,11 @@ export default () => {
     // 作为 key 永不选中
     const item = obj["name info"];
     const item2 = obj[`name_${info}`];
+
+    // 不能抽取类url模板字符串
+    fetch(`https://jsdelivr.deno.dev/npm/font-analyze@1.3.3/data/${name}`).then(
+        (res) => res.json()
+    );
     return (
         <section class="container">
             <div class="error-bg">
@@ -34,10 +39,7 @@ export default () => {
                 <p class="err-msg"> prefix{"info"}suffix </p>
                 <pre class="err-msg"> prefix{"info"}suffix </pre>
                 <code class={"err-msg" + 323423}> code info </code>
-                <style>
-
-                    info mation
-                </style>
+                <style>info mation</style>
                 {/* <!-- 需要抽取 alt 属性 --> */}
                 <img
                     class="err-msg"
@@ -49,6 +51,21 @@ export default () => {
                     alt={"important message"}
                     src="./index.jpg"
                 />
+                {/* style */}
+                <style>
+                    {` @font-face {font-family: '${fontFamily()}';src: url(${
+                        props.fontURL
+                    });}`}
+                </style>
+                <div
+                    title="info mation"
+                    placeholder="skip"
+                    alt="./index.jpg"
+                    style={{
+                        "font-feature-settings": `"${i}" 0`,
+                    }}>
+                    {sub_text}
+                </div>
             </div>
         </section>
     );

@@ -1,4 +1,4 @@
-import { GoGoAST } from "gogocode";
+import { GoGoAST, NodePath } from "gogocode";
 import { ReplacerConfig, Tools } from "./interface";
 import { quoteString } from "../utils";
 function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
@@ -29,20 +29,65 @@ function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
     ast.loc.endPosition = ast.loc.startPosition + newContentLength;
   }
 }
+/** 获取父级链 */
 function getTextNodeContent(ast: any) {
   if (ast.type === "JSXText") return ast.value;
   return ast.content.value.content;
 }
+export const getParentChain = (nodePath: NodePath) => {
+  const paths: NodePath[] = []
+  do {
+    paths.push(nodePath)
+    if (!nodePath.parentPath) break
+    nodePath = nodePath.parentPath
+  } while (!nodePath || nodePath.node.type !== 'Program')
+  return paths
+}
+
+/** 获取父级链的所有 tagName */
+export const getParentTagName = (nodePaths: NodePath[]) => {
+  return nodePaths.map(i => {
+    if (i.node.type === 'JSXElement') {
+      // @ts-ignore
+      return i.node.openingElement.name.name
+    }
+    if (i.node.type === 'JSXOpeningElement') {
+      // @ts-ignore
+      return i.node.name.name
+    }
+    if (i.node.type === 'JSXFragment') {
+      // return i.node.children
+    }
+  }).filter(i => i)
+}
+/** 获取最近级别的 attrName */
+export const getParentAttrName = (nodePaths: NodePath[], allowFn: (nodeName: string, nodePath: NodePath) => boolean) => {
+  return nodePaths.find(i => {
+    if (i.node.type === "JSXAttribute") {
+      return allowFn(i.node.name.name as string, i)
+    }
+  })
+}
+
 export const createHTMLReplacer = (config: ReplacerConfig) => {
   return (ast: GoGoAST) =>
     ast
       .find(["<$_$0>$_$content</$_$0>", "<$_$0 />"])
       .each((node) => {
         // @ts-ignore
-        const astNode = node[0].nodePath.node;
+        const nodePath = node[0].nodePath;
+        const astNode = nodePath.node;
+
+
+        // 忽略 html 标签
+        const parentChain = getParentTagName(getParentChain(nodePath))
         const tagName = astNode.openingElement?.name.name;
-        if (config?.ignore?.HTMLTag?.includes(tagName)) {
-          return;
+        const ignoreHTMLTag = config.ignore?.HTMLTag;
+        if (ignoreHTMLTag) {
+          if (ignoreHTMLTag?.includes(tagName)) return;
+          if (parentChain.some(tagName => ignoreHTMLTag?.includes(tagName))) {
+            return;
+          }
         }
 
         // @ts-ignore 标签属性遍历，当标签元素不包含属性的时候，astNode.content.attributes为undefined，需要使用 ?. 判断一下forEach
@@ -71,6 +116,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
         );
 
         if (!textNodes.length) return;
+
 
         textNodes.forEach((ast: any) => {
           const text = getTextNodeContent(ast);

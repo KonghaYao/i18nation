@@ -34,7 +34,10 @@ export const createDefaultConfig = (config: ConfigFileType) => {
       ...(config?.ignore?.HTMLTag ?? []),
     ],
     regexp: [
-      /^(?:(http|https|ftp):\/\/)?((|[\w-]+\.)+[a-z0-9]+)(?:(\/[^/?#]+)*)?(\?[^#]+)?(#.+)?$/,
+      // http:// 等协议开头的文本
+      /^.+?:\/\/[\S]*?$/,
+      // 相对路径文本
+      /^\.+\/.*?$/,
       ...(config?.ignore?.regexp ?? []),
     ],
   };
@@ -49,7 +52,11 @@ export const createDefaultConfig = (config: ConfigFileType) => {
     },
     templateReplacer(str, lang) {
       if (str.trim().length === 0) return str;
-      if (matchOneIgnoreRegExp(str)) return str;
+      if (str.startsWith('`')) {
+        if (matchOneIgnoreRegExp(str.slice(1, -1))) return str;
+      } else {
+        if (matchOneIgnoreRegExp(str)) return str;
+      }
       return config.templateReplacer(str, lang);
     },
     attrReplacer(attrName, str, replaceAttrName) {

@@ -1,6 +1,7 @@
-import { GoGoAST } from "gogocode";
+import { GoGoAST, NodePath } from "gogocode";
 import { ReplacerConfig, Tools } from "./interface";
 import { quoteString } from "../utils";
+import { getParentAttrName, getParentChain, getParentTagName } from "./html";
 
 export const createJSReplacer = (config: ReplacerConfig) => {
     return (ast: GoGoAST) => ast
@@ -20,7 +21,6 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 tools.replaceAttrName = replaceAttrName
                 return quoteString(config.attrReplacer(attrName.toString(), matchedText, tools), tools.wrapperChar)
             }
-            // console.log(nodePath)
             if (nodePath.parentPath.node.type === 'MemberExpression') {
                 return quoteString(matchedText, tools.wrapperChar)
             }
@@ -30,11 +30,35 @@ export const createJSReplacer = (config: ReplacerConfig) => {
         .find('`$_$str`').each((item) => {
             const sourceCode = item.generate()
             item.replace('`$_$str`', (matched, nodePath) => {
+                const tools: Tools = {
+                    wrapperChar: "''"
+                }
+                const nodePaths = getParentChain(nodePath)
                 if (nodePath.parentPath.node.type === 'MemberExpression') {
                     return sourceCode
-                } else {
-                    return config.templateReplacer(sourceCode, 'js')
                 }
+                // 检查 html 属性
+                if (
+                    // jsx html 包裹
+                    getParentTagName(nodePaths).some(i => {
+                        return config.ignore.HTMLTag?.includes(i)
+                    })
+
+                ) {
+                    return sourceCode
+                }
+                let tag = getParentAttrName(nodePaths, () => true)
+                if (tag) {
+                    const replaceAttrName = (name: string) => {
+                        /** @ts-ignore */
+                        tag.node.name.name = name
+                    }
+                    tools.replaceAttrName = replaceAttrName
+                    /** @ts-ignore */
+                    return config.attrReplacer(tag.node.name.name, sourceCode, tools)
+                }
+                return config.templateReplacer(sourceCode, 'js')
+
             })
         })
         .root()
