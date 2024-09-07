@@ -63,7 +63,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
 
         // 下面为处理文本节点
         // @ts-ignore
-        const children = astNode.content?.children || astNode.children || [];
+        const children: any[] = astNode.content?.children || astNode.children || [];
         // console.log(children)
         // @ts-ignore
         const textNodes = children.filter(

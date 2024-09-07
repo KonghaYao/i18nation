@@ -43,7 +43,8 @@ export const VuePresets = (context: PresetConfig) => {
             context.json[hash] = str
             tools.replaceAttrName!(':' + attrName)
             return context.createTranslateCode(hash)
-        }
+        },
+        ignore: context.ignore!
     }
     return config
 }

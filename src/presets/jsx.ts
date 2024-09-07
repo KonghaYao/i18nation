@@ -45,7 +45,8 @@ export const JSXPresets = (context: PresetConfig) => {
             context.json[hash] = str
             tools.wrapperChar = '{}'
             return context.createTranslateCode(hash)
-        }
+        },
+        ignore: context.ignore!
     }
     return config
 }
