@@ -7,7 +7,7 @@ export function quoteString(str: string, quoteType?: string) {
     return `${quoteType![0] ?? ""}${str}${quoteType![1] ?? ''}`;
 }
 /** 保证 ast 类型，而不是报错 */
-export function checkAst(ast: GoGoAST) {
+export function checkAst(ast: any): GoGoAST {
     if (ast.error) {
         console.log(ast.src)
         throw ast.error

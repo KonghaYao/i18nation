@@ -19,6 +19,7 @@ const item = obj["name info"];
 const item2 = obj[`name_${info}`];
 ---
 
+<!doctype html>
 <p class="err-title">404 RightThisWay</p>
 <p class="err-msg">Soury,&nbsp;&nbsp;&nbsp; Invisible~</p>
 <p class="err-msg">{"info"}</p>
@@ -30,3 +31,18 @@ const item2 = obj[`name_${info}`];
 <!-- <TechSupport /> -->
 
 <!-- TimeLine 一个开发时间线 -->
+
+<!-- 代码解析 -->
+<style>
+    .html {
+        height: 100%;
+    }
+</style>
+
+<script type="module">
+    // 多个单词：必定选中
+    const inline_script_replaced = "hello world";
+
+    // 模板字符串通通被选中
+    const templateTest = `prefix${info + "23232"}after`;
+</script>

@@ -1,6 +1,6 @@
 {
     "name": "i18nation",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "description": "",
     "main": "./dist/index.js",
     "files": [
@@ -12,7 +12,8 @@
     },
     "scripts": {
         "test": "vitest ./test/*",
-        "build": "rm -rf dist&&tsc -p tsconfig.build.json"
+        "build": "rm -rf dist&&tsc -p tsconfig.build.json",
+        "prepublish": "pnpm build"
     },
     "keywords": [],
     "author": "",

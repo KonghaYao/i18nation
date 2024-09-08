@@ -29,3 +29,7 @@ graph LR
 -   [x] 空字符串、标点符号不抽取
 -   [x] html 注释避让
 -   [x] 尽量维持原始引号
+-   astro
+    -   [x] 不解析 inline style
+    -   [x] 解析 inline script
+    -   [x] 控制 `<!DOCTYPE html>` 的解析

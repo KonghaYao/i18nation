@@ -117,4 +117,17 @@ describe("astro template 测试", async () => {
   test("alt 属性被替换", () => {
     expect(data).include(`alt={i18next.t("`);
   });
+  test("doctype 保持", () => {
+    expect(data).include("<!doctype html>");
+  });
+  test("style 保持", () => {
+    expect(data).include(`<style>
+    .html {
+        height: 100%;
+    }
+</style>`)
+  })
+  test("script 保持", () => {
+    expect(data).includes('<script type="module">').includes('const inline_script_replaced = i18next.t(')
+  })
 });
