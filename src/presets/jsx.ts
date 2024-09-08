@@ -5,7 +5,7 @@ import md5 from 'md5'
 export const JSXPresets = (context: PresetConfig) => {
     const config: ReplacerConfig = {
         stringReplacer(str, lang, tools) {
-            // console.log(1,lang,str)
+            // console.log(1, lang, str)
             const hash = md5(str)
             context.json[hash] = str
 

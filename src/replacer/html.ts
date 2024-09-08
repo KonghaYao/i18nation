@@ -1,6 +1,6 @@
 import { GoGoAST, NodePath } from "gogocode";
 import { ReplacerConfig, Tools } from "./interface";
-import { quoteString } from "../utils";
+import { checkAst, quoteString } from "../utils";
 function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
   if (ast.nodeType === "text") {
     const oldContent = getTextNodeContent(ast);
@@ -29,11 +29,11 @@ function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
     ast.loc.endPosition = ast.loc.startPosition + newContentLength;
   }
 }
-/** 获取父级链 */
 function getTextNodeContent(ast: any) {
   if (ast.type === "JSXText") return ast.value;
   return ast.content.value.content;
 }
+/** 获取父级链 */
 export const getParentChain = (nodePath: NodePath) => {
   const paths: NodePath[] = []
   do {
@@ -71,7 +71,7 @@ export const getParentAttrName = (nodePaths: NodePath[], allowFn: (nodeName: str
 
 export const createHTMLReplacer = (config: ReplacerConfig) => {
   return (ast: GoGoAST) =>
-    ast
+    checkAst(ast)
       .find(["<$_$0>$_$content</$_$0>", "<$_$0 />"])
       .each((node) => {
         // @ts-ignore

@@ -1,3 +1,4 @@
+import { htmlCommentToJsx, jsxCommentToHtml } from "../utils";
 import { ReplacerConfig } from "./interface";
 import { createJSReplacer } from "./javascript";
 import { createReplacer as createJSXReplacer } from "./jsx";
@@ -34,7 +35,7 @@ export default {
     const jsReplacer = createJSReplacer(config);
     const jsxReplacer = createJSXReplacer(config);
     return (ast: AstroAST) => {
-      const jsx = $(`<>\n${ast.jsx}\n</>`);
+      const jsx = $(`<>\n${htmlCommentToJsx(ast.jsx)}\n</>`);
       const js = $(ast.js);
       jsxReplacer(jsx);
       jsReplacer(js);
@@ -45,7 +46,7 @@ export default {
           return this;
         },
         generate() {
-          return `---\n${js.generate()}\n---\n${jsx.generate().slice(3, -3)}`;
+          return `---\n${js.generate()}\n---\n${jsxCommentToHtml(jsx.generate().slice(3, -3))}`;
         },
       };
     };

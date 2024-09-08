@@ -1,14 +1,20 @@
 import { GoGoAST, NodePath } from "gogocode";
 import { ReplacerConfig, Tools } from "./interface";
-import { quoteString } from "../utils";
+import { checkAst, quoteString } from "../utils";
 import { getParentAttrName, getParentChain, getParentTagName } from "./html";
 
+export const createTool = (nodePath: NodePath) => {
+    // @ts-ignore
+    const originWrapperChar = nodePath.node.extra?.raw[0] ?? '"'
+    const tools: Tools = {
+        wrapperChar: `${originWrapperChar}${originWrapperChar}`
+    }
+    return tools
+}
 export const createJSReplacer = (config: ReplacerConfig) => {
-    return (ast: GoGoAST) => ast
+    return (ast: GoGoAST) => checkAst(ast)
         .replace(`'$_$str'`, (match, nodePath) => {
-            const tools: Tools = {
-                wrapperChar: "''"
-            }
+            const tools = createTool(nodePath)
 
             const matchedText = match.str[0].value
             // 忽略 jsx 的 attr 中的字符串
@@ -30,9 +36,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
         .find('`$_$str`').each((item) => {
             const sourceCode = item.generate()
             item.replace('`$_$str`', (matched, nodePath) => {
-                const tools: Tools = {
-                    wrapperChar: "''"
-                }
+                const tools = createTool(nodePath)
                 const nodePaths = getParentChain(nodePath)
                 if (nodePath.parentPath.node.type === 'MemberExpression') {
                     return sourceCode

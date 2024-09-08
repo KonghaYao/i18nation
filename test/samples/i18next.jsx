@@ -66,6 +66,9 @@ export default () => {
                     }}>
                     {sub_text}
                 </div>
+
+                {/*  正确解析花括号 */}
+                <div style="font-family: 'LogoSC LongZhuTi';"></div>
             </div>
         </section>
     );
