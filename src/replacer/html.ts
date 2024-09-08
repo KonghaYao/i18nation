@@ -90,6 +90,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
           }
         }
 
+
         // @ts-ignore 标签属性遍历，当标签元素不包含属性的时候，astNode.content.attributes为undefined，需要使用 ?. 判断一下forEach
         astNode.content?.attributes?.forEach((i) => {
           if (i.key.content === "\r") return; // 过滤掉换行符
@@ -121,6 +122,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
         textNodes.forEach((ast: any) => {
           const text = getTextNodeContent(ast);
           if (!text.trim()) return false;
+
           if (isVueTemplateSnippets(text)) {
             updateTextNode(ast, (text) =>
               config.templateReplacer(text, "html")

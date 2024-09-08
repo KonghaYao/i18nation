@@ -40,7 +40,7 @@ export const createDefaultConfig = (config: ConfigFileType) => {
       // http:// 等协议开头的文本
       /^.+?:\/\/[\S]*?$/,
       // 相对路径文本
-      /^\.+\/.*?$/,
+      /^\.*\/\S*?$/,
       ...(config?.ignore?.regexp ?? []),
     ],
   };

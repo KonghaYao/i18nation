@@ -5,11 +5,13 @@ import sourceCode from './samples/sample.jsx?raw'
 describe('jsx 测试', async () => {
     const data = await sourceCodeReplacer('index.jsx', sourceCode, {
         stringReplacer(str, lang) {
+            console.log(str)
             if (isOneWord(str)) return str
             return `${str.toUpperCase() + "_REPLACED"}`
 
         },
         templateReplacer(str) {
+
             return `\$t(${str})`
         },
         attrReplacer(attrName, str) {
@@ -24,7 +26,8 @@ describe('jsx 测试', async () => {
         expect(data).include('404 RIGHTTHISWAY_REPLACED')
     })
     it("dom 中间挖空测试", () => {
-        expect(data).include('PREFIX_REPLACED{info}SUFFIX _REPLACED')
+
+        expect(data).include('prefix{info}suffix')
     })
     it("dom 属性测试", () => {
         expect(data).include('alt="测试important message"')

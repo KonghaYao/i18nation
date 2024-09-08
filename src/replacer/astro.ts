@@ -5,7 +5,7 @@ import { createJSReplacer } from "./javascript";
 import { createReplacer as createJSXReplacer } from "./jsx";
 import $, { GoGoAST } from "gogocode";
 
-const frontmatterRegex = /^\n*?---\s*\n([\s\S]*?)\n---\s*/;
+const frontmatterRegex = /^\n*?---\s*([\s\S]*?)\n---\s*/;
 
 function separateAstroSyntax(astroCode: string): AstroAST {
   let match = astroCode.match(frontmatterRegex);

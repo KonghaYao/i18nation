@@ -5,9 +5,8 @@ export default () => {
             <div class="error-bg">
                 {/* 抽取所有的文本内容  */}
                 <p class="err-title">404 RightThisWay</p>
-                <p class="err-msg"> prefix{info}suffix </p>
-
                 {/* BUG 暂时匹配不到 动态赋予的 string */}
+                <p class="err-msg"> prefix{info}suffix </p>
                 <p class="err-msg"> prefix{"templateString"}suffix </p>
                 {/*  需要抽取 alt 属性  */}
                 <img

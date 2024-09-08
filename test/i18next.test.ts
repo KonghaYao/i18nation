@@ -66,7 +66,7 @@ describe("jsx template 测试", async () => {
     });
   });
   test("jsx slot 正确", () => {
-    expect(data).include(`>{i18next.t`);
+    expect(data).include(`>{i18next.t`).include('U+{props');
   });
   test("属性被替换", () => {
     expect(data)
@@ -86,7 +86,7 @@ describe("jsx template 测试", async () => {
   test("保持 URL 模板", () => {
     expect(data).include(
       "https://jsdelivr.deno.dev/npm/font-analyze@1.3.3/data/${name}"
-    );
+    ).includes("`/packages/${font}/dist/${fileName}/result.css`")
   });
   test("保持特殊标签内的模板字符串", () => {
     expect(data)
@@ -129,6 +129,9 @@ describe("astro template 测试", async () => {
   test("doctype 保持", () => {
     expect(data).include("<!doctype html>");
   });
+  test("url 保持", () => {
+    expect(data).includes("`/packages/${font}/dist/${fileName}/result.css`")
+  })
   test("style 保持", () => {
     expect(data).include(`<style>
     .html {
@@ -137,8 +140,31 @@ describe("astro template 测试", async () => {
 </style>`);
   });
   test("script 保持", () => {
-    expect(data)
-      .includes('<script type="module">')
-      .includes("const inline_script_replaced = i18next.t(");
-  });
+    expect(data).includes('<script type="module">').includes('const inline_script_replaced = i18next.t(')
+  })
 });
+import AstroVoidHeader from './samples/voidHeader.astro?raw'
+describe("astro void template 测试", async () => {
+  const json = {};
+  const data = await sourceCodeReplacer(
+    "index.astro",
+    AstroVoidHeader,
+    createDefaultConfig({
+      entry: [],
+      ...JSXPresets({
+        filename: "index.astro",
+        json,
+        createTranslateCode(hash, params) {
+          return `i18next.t("${hash}"${params ? `, ${params}` : ""})`;
+        },
+        createStringSlot(key) {
+          return `{${key}}`;
+        },
+      }),
+    })
+  );
+  // console.log(data)
+  test('void header 保持', () => {
+    expect(data).not.includes('---\n---')
+  })
+})

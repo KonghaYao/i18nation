@@ -16,13 +16,18 @@ export const createJSReplacer = (config: ReplacerConfig) => {
         .replace(`'$_$str'`, (match, nodePath) => {
             const tools = createTool(nodePath)
 
-            const matchedText = match.str[0].value           
+            const matchedText = match.str[0].value
+            const pChain = getParentChain(nodePath)
+            const attrTag = pChain.find(i => i.node.type === 'JSXAttribute')
+            // console.log(matchedText)
+
             // 忽略 jsx 的 attr 中的字符串
-            if (nodePath.parentPath.node.type === 'JSXAttribute') {
-                const attrName = nodePath.parentPath.node.name.name
+            if (attrTag) {
+                /** @ts-ignore */
+                const attrName = attrTag.node.name.name
                 const replaceAttrName = (name: string) => {
                     /** @ts-ignore */
-                    nodePath.parentPath.node.name.name = name
+                    attrTag.node.name.name = name
                 }
                 tools.replaceAttrName = replaceAttrName
                 return quoteString(config.attrReplacer(attrName.toString(), matchedText, tools), tools.wrapperChar)
@@ -30,17 +35,18 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             if (
                 nodePath.parentPath.node.type === 'MemberExpression' ||
                 // 是 Object 的属性时，不进行处理
-                nodePath.parentPath.node.type === 'ObjectProperty' 
+                nodePath.parentPath.node.type === 'ObjectProperty'
             ) {
                 return quoteString(matchedText, tools.wrapperChar)
             }
-            if(matchedText.includes('USA'))
-               console.log( nodePath.parentPath.node.type )
+            if (matchedText.includes('USA'))
+                console.log(nodePath.parentPath.node.type)
             return quoteString(config.stringReplacer(matchedText, 'js', tools), tools.wrapperChar)
         })
         // \` 不作为 jsx 标签属性的边界
         .find('`$_$str`').each((item) => {
             const sourceCode = item.generate()
+            // console.log(sourceCode)
             item.replace('`$_$str`', (matched, nodePath) => {
                 const tools = createTool(nodePath)
                 const nodePaths = getParentChain(nodePath)
