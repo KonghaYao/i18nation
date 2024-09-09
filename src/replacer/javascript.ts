@@ -16,7 +16,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
         .replace(`'$_$str'`, (match, nodePath) => {
             const tools = createTool(nodePath)
 
-            const matchedText = match.str[0].value
+            const matchedText = match.str[0].value           
             // 忽略 jsx 的 attr 中的字符串
             if (nodePath.parentPath.node.type === 'JSXAttribute') {
                 const attrName = nodePath.parentPath.node.name.name
@@ -27,9 +27,15 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 tools.replaceAttrName = replaceAttrName
                 return quoteString(config.attrReplacer(attrName.toString(), matchedText, tools), tools.wrapperChar)
             }
-            if (nodePath.parentPath.node.type === 'MemberExpression') {
+            if (
+                nodePath.parentPath.node.type === 'MemberExpression' ||
+                // 是 Object 的属性时，不进行处理
+                nodePath.parentPath.node.type === 'ObjectProperty' 
+            ) {
                 return quoteString(matchedText, tools.wrapperChar)
             }
+            if(matchedText.includes('USA'))
+               console.log( nodePath.parentPath.node.type )
             return quoteString(config.stringReplacer(matchedText, 'js', tools), tools.wrapperChar)
         })
         // \` 不作为 jsx 标签属性的边界

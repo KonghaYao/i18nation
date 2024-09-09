@@ -22,6 +22,9 @@ export const createDefaultConfig = (config: ConfigFileType) => {
       alt: true,
       title: true,
       placeholder: true,
+      description: true,
+      keywords: true,
+      content: true
     },
     config.replaceAttr ?? {}
   );
