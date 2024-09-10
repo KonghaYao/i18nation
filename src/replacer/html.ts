@@ -1,6 +1,7 @@
 import { GoGoAST, NodePath } from "gogocode";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
+import { createTool } from "./javascript";
 function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
   if (ast.nodeType === "text") {
     const oldContent = getTextNodeContent(ast);
@@ -75,7 +76,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
       .find(["<$_$0>$_$content</$_$0>", "<$_$0 />"])
       .each((node) => {
         // @ts-ignore
-        const nodePath = node[0].nodePath;
+        const nodePath: any = node[0].nodePath;
         const astNode = nodePath.node;
 
 
@@ -97,8 +98,8 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
           const attrName = i.key.content;
           const value = i.value.content;
           const newValue = config.attrReplacer(attrName.toString(), value, {
-            // TODO 暂时无用
-            wrapperChar: "''",
+
+            ...createTool(nodePath),// TODO 暂时无用
             replaceAttrName(name) {
               i.key.content = name;
             },
@@ -130,8 +131,10 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
             return;
           }
           updateTextNode(ast, (text) => {
+            // @ts-ignore
             const tools: Tools = {
               wrapperChar: "",
+
             };
             return quoteString(
               config.stringReplacer(text, "html", tools),

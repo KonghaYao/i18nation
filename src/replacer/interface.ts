@@ -6,6 +6,7 @@ export interface Tools {
      */
     wrapperChar: string;
     replaceAttrName?: (name: string) => void
+    parentType: string
 }
 
 export interface ReplacerConfig {

@@ -43,7 +43,9 @@ export const JSXPresets = (context: PresetConfig) => {
         attrReplacer(attrName, str, tools) {
             const hash = md5(str)
             context.json[hash] = str
-            tools.wrapperChar = '{}'
+            // 当 jsx 直接父级为属性时，那么需要括号，否则不需要
+            tools.wrapperChar = tools.parentType === 'JSXAttribute' ? '{}' : ""
+
             return context.createTranslateCode(hash)
         },
         ignore: context.ignore!

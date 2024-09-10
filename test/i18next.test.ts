@@ -71,6 +71,7 @@ describe("jsx template 测试", async () => {
   test("属性被替换", () => {
     expect(data)
       .include(`alt={i18next.t("`)
+      .include("alt={item.name + i18n")
       .includes("placeholder={i18next.t")
       .includes("title={i18next.t")
       .includes("keywords={i18next.t")
@@ -113,7 +114,7 @@ describe("astro template 测试", async () => {
       }),
     })
   );
-  // console.log(data)
+  console.log(data)
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
@@ -121,7 +122,7 @@ describe("astro template 测试", async () => {
     });
   });
   test("jsx slot 正确", () => {
-    expect(data).include(`>{i18next.t`);
+    expect(data).include(`>{i18next.t`).includes("title={i18n")
   });
   test("alt 属性被替换", () => {
     expect(data).include(`alt={i18next.t("`);

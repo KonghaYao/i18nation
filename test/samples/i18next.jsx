@@ -60,6 +60,7 @@ export default () => {
                     alt="important message"
                     src="./index.jpg"
                 />
+                <img alt={item.name + " 的 icon"} />
                 <img
                     class="err-msg"
                     alt={"important message"}

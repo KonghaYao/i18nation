@@ -7,7 +7,8 @@ export const createTool = (nodePath: NodePath) => {
     // @ts-ignore
     const originWrapperChar = nodePath.node.extra?.raw[0] ?? '"'
     const tools: Tools = {
-        wrapperChar: `${originWrapperChar}${originWrapperChar}`
+        wrapperChar: `${originWrapperChar}${originWrapperChar}`,
+        parentType: nodePath.parentPath.node.type
     }
     return tools
 }
@@ -30,6 +31,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     attrTag.node.name.name = name
                 }
                 tools.replaceAttrName = replaceAttrName
+                // console.log(nodePath.parentPath.node.type, matchedText)
                 return quoteString(config.attrReplacer(attrName.toString(), matchedText, tools), tools.wrapperChar)
             }
             if (
@@ -39,8 +41,6 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             ) {
                 return quoteString(matchedText, tools.wrapperChar)
             }
-            if (matchedText.includes('USA'))
-                console.log(nodePath.parentPath.node.type)
             return quoteString(config.stringReplacer(matchedText, 'js', tools), tools.wrapperChar)
         })
         // \` 不作为 jsx 标签属性的边界
