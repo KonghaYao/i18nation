@@ -20,7 +20,6 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             const matchedText = match.str[0].value
             const pChain = getParentChain(nodePath)
             const attrTag = pChain.find(i => i.node.type === 'JSXAttribute')
-            // console.log(matchedText)
 
             // 忽略 jsx 的 attr 中的字符串
             if (attrTag) {
@@ -57,7 +56,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 if (
                     // jsx html 包裹
                     getParentTagName(nodePaths).some(i => {
-                        return config.ignore.HTMLTag?.includes(i)
+                        return config.ignore?.HTMLTag?.includes(i)
                     })
 
                 ) {
