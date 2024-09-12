@@ -1,6 +1,7 @@
 import { GoGoAST } from "gogocode";
 
 export const isOneWord = (str: string) => {
+    if(!str.trim()) return true
     return /^[a-zA-Z|_|\-|0-9|*&^%$#@:=\+!,\.\/]+$/.test(str.trim())
 }
 export function quoteString(str: string, quoteType="") {

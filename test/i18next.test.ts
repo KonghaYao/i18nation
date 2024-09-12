@@ -58,7 +58,7 @@ describe("jsx template 测试", async () => {
       }),
     })
   );
-  console.log(data);
+  // console.log(data);
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
@@ -92,7 +92,8 @@ describe("jsx template 测试", async () => {
   test("保持特殊标签内的模板字符串", () => {
     expect(data)
       .include("` @font-face {font-family: '${fontFamily()}';src: url(${")
-      .includes('"font-feature-settings": `"${i}" 0`,');
+      .includes('"font-feature-settings": `"${i}" 0`,')
+      .includes("const temp = html`<a")
   });
 });
 describe("astro template 测试", async () => {

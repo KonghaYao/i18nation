@@ -18,7 +18,7 @@ export const JSXPresets = (context: PresetConfig) => {
             }
         },
         templateReplacer(str, lang) {
-            // console.log(str)
+            // console.log(str,lang)
             const hash = md5(str)
             const slots: string[] = []
             switch (lang) {

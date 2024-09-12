@@ -37,7 +37,26 @@ export default () => {
     Taiwan: "China",
     Kong: "China",
   };
-  const text = '中文网字计划\n带来网络\n中文的爱与和谐';
+  const text = "中文网字计划\n带来网络\n中文的爱与和谐";
+
+  // 特殊模板字符串不进行解析
+  const temp = html`<a
+    href="${`/google/fonts?packageName=${item.fontId}`}"
+    class="w-full"
+  >
+    <div
+      class="flex w-full cursor-pointer flex-col"
+      ref=${(dom: HTMLDivElement) => {
+        if (dom) {
+          // 为了避免不同的垃圾回收导致的性能下降
+          (cacheItems.get(item.objectID) || (() => {}))();
+          const c = createEl(item, dom);
+          cacheItems.set(item.objectID, c);
+        }
+      }}
+    ></div>
+  </a>`;
+
   return (
     <section class="container">
       <div class="error-bg">

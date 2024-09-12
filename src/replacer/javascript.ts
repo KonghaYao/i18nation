@@ -49,7 +49,9 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             item.replace('`$_$str`', (matched, nodePath) => {
                 const tools = createTool(nodePath)
                 const nodePaths = getParentChain(nodePath)
-                if (nodePath.parentPath.node.type === 'MemberExpression') {
+
+                if (nodePaths.map(i=>i.node.type).some(i=>['MemberExpression', "TaggedTemplateExpression"].includes(i))) {
+                    // console.log(sourceCode)
                     return sourceCode
                 }
                 // 检查 html 属性
@@ -72,6 +74,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     /** @ts-ignore */
                     return config.attrReplacer(tag.node.name.name, sourceCode, tools)
                 }
+                // console.log(nodePath.parentPath.node,sourceCode)
                 return config.templateReplacer(sourceCode, 'js')
 
             })
