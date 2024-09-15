@@ -58,7 +58,7 @@ describe("jsx template 测试", async () => {
       }),
     })
   );
-  // console.log(data);
+  console.log(data);
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
@@ -82,7 +82,7 @@ describe("jsx template 测试", async () => {
     expect(data).include(`url_info`).includes("../info").includes("@/info");
   });
   test("特殊字符保持", () => {
-    expect(data).include(".woff2").include("#300").includes("100%");
+    expect(data).include(".woff2").include("#300").includes("100%").includes('const cant1 = "    \\n    "').includes('const cant = "\\n"')
   });
   test("保持 URL 模板", () => {
     expect(data).include(

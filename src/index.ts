@@ -49,7 +49,6 @@ export const createDefaultConfig = (config: ConfigFileType) => {
   const defaultConfig: ReplacerConfig = {
     stringReplacer(str, lang, tools) {
       if (isOneWord(str)) return str;
-      if (str.trim().length === 0) return str;
       if (matchOneIgnoreRegExp(str)) return str;
       return config.stringReplacer(str, lang, tools);
     },

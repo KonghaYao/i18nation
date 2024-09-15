@@ -2,6 +2,7 @@ import { GoGoAST, NodePath } from "gogocode";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
 import { getParentAttrName, getParentChain, getParentTagName } from "./html";
+import { ReplaceSpecialChars } from "../constants";
 
 export const createTool = (nodePath: NodePath) => {
     // @ts-ignore
@@ -16,7 +17,6 @@ export const createJSReplacer = (config: ReplacerConfig) => {
     return (ast: GoGoAST) => checkAst(ast)
         .replace(`'$_$str'`, (match, nodePath) => {
             const tools = createTool(nodePath)
-
             const matchedText = match.str[0].value
             const pChain = getParentChain(nodePath)
             const attrTag = pChain.find(i => i.node.type === 'JSXAttribute')
@@ -40,7 +40,8 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             ) {
                 return quoteString(matchedText, tools.wrapperChar)
             }
-            return quoteString(config.stringReplacer(matchedText, 'js', tools), tools.wrapperChar)
+            const replaced = config.stringReplacer(matchedText, 'js', tools)
+            return ReplaceSpecialChars.replace(quoteString(replaced, tools.wrapperChar))
         })
         // \` 不作为 jsx 标签属性的边界
         .find('`$_$str`').each((item) => {
@@ -50,7 +51,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 const tools = createTool(nodePath)
                 const nodePaths = getParentChain(nodePath)
 
-                if (nodePaths.map(i=>i.node.type).some(i=>['MemberExpression', "TaggedTemplateExpression"].includes(i))) {
+                if (nodePaths.map(i => i.node.type).some(i => ['MemberExpression', "TaggedTemplateExpression"].includes(i))) {
                     // console.log(sourceCode)
                     return sourceCode
                 }

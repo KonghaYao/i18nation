@@ -5,6 +5,7 @@ import { createReplacer as createJsxReplacer } from "./replacer/jsx";
 import { createJSReplacer as createJsReplacer } from "./replacer/javascript";
 import { createReplacer as createVueReplacer } from "./replacer/vue";
 import AstroPlugin from "./replacer/astro";
+import { ReplaceSpecialChars } from "./constants";
 const javascriptExtensions = [".ts", ".js", ".cjs", ".mjs", ".cts", ".mts"];
 const tsxExtensions = [".tsx", ".jsx"];
 
@@ -39,5 +40,5 @@ export const sourceCodeReplacer = async (
     ast = AstroPlugin.createAST(filePath, code, config);
   }
   const result = replacer!(ast!);
-  return result.root().generate();
+  return ReplaceSpecialChars.unReplace(result.root().generate());
 };
