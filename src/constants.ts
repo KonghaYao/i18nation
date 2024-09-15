@@ -1,5 +1,5 @@
 /** 换行符 */
-export const lineBreak = "$LINE_BREAK$";
+export const lineBreak = "#LINE_BREAK#";
 
 /** 替换代码中的特殊符号 */
 export const ReplaceSpecialChars = {
@@ -7,6 +7,6 @@ export const ReplaceSpecialChars = {
         return str.replace(/\n/g, lineBreak)
     },
     unReplace(str: string) {
-        return str.replaceAll(lineBreak, "\\n")
+        return str.replace(new RegExp(lineBreak, 'g'), "\\n")
     }
 }
