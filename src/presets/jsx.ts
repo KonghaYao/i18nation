@@ -6,14 +6,15 @@ export const JSXPresets = (context: PresetConfig) => {
     const config: ReplacerConfig = {
         stringReplacer(str, lang, tools) {
             const hash = md5(str)
-            context.json[hash] = str
 
             tools.wrapperChar = ''
             // console.log(lang, str)
             switch (lang) {
                 case 'html':
+                    context.json[hash] = str.trim()
                     return `{${context.createTranslateCode(hash)}}`
                 case "js":
+                    context.json[hash] = str
                     return context.createTranslateCode(hash)
             }
         },
