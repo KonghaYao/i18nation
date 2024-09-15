@@ -71,7 +71,7 @@ class AstroTemplateParser {
     return jsxCommentToHtml(code).replace(/<S([\w\d]{32})><\/S\1>/g, (match, p1) => {
       return this.skipReplacer[p1] || match
     }).replace(/<J([\w\d]{32}) ([^>]*?)><\/J\1>/g, (match, p1, p2) => {
-      return `<script${!p2 || p2?.startsWith(' ') ? p2 : ' ' + p2}>${this.jsReplacer[p1]?.generate()}</script$>` || match
+      return (`<script${!p2 || p2?.startsWith(' ') ? p2 : ' ' + p2}>${this.jsReplacer[p1]?.generate()}` + "<\/script>") || match
     })
   }
 }

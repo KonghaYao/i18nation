@@ -115,7 +115,7 @@ describe("astro template 测试", async () => {
       }),
     })
   );
-  // console.log(data)
+  console.log(data)
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
@@ -142,7 +142,7 @@ describe("astro template 测试", async () => {
 </style>`);
   });
   test("script 保持", () => {
-    expect(data).includes('<script type="module">').includes('const inline_script_replaced = i18next.t(')
+    expect(data).includes('<script type="module">').includes('const inline_script_replaced = i18next.t(').includes("</script>")
   })
 });
 import AstroVoidHeader from './samples/voidHeader.astro?raw'
