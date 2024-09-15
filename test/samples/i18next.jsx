@@ -121,6 +121,8 @@ export default () => {
                 <span class="font-sans text-xs font-thin">
                     U+{props.item.charCodeAt(0).toString(16)}
                 </span>
+
+                <span sample={" \" ' ` "}></span>
             </div>
         </section>
     );

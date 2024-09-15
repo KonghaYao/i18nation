@@ -1,15 +1,16 @@
 import { GoGoAST } from "gogocode";
 
 export const isOneWord = (str: string) => {
-    if(!str.trim()) return true
+    if (!str.trim()) return true
     return /^[a-zA-Z|_|\-|0-9|*&^%$#@:=\+!,\.\/]+$/.test(str.trim())
 }
-export function quoteString(str: string, quoteType="") {
-    if(quoteType[0]==='"' && str.includes('"')){
+export function quoteString(str: string, quoteType = "") {
+    if (quoteType[0] === '"' && str.includes('"')) {
         quoteType = "''"
     }
-    if(quoteType[0]==="'" && str.includes("'")){
+    if (quoteType[0] === "'" && str.includes("'")) {
         quoteType = '``'
+        str = str.replace(/(?<!\\)`/g, "\\`")
     }
     return `${quoteType![0] ?? ""}${str}${quoteType![1] ?? ''}`;
 }
