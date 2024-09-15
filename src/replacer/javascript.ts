@@ -36,7 +36,8 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             if (
                 nodePath.parentPath.node.type === 'MemberExpression' ||
                 // 是 Object 的属性时，不进行处理
-                nodePath.parentPath.node.type === 'ObjectProperty'
+                nodePath.parentPath.node.type === 'ObjectProperty' ||
+                pChain.some(i => i.node.type === 'ImportDeclaration')
             ) {
                 return quoteString(matchedText, tools.wrapperChar)
             }

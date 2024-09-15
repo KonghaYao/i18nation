@@ -79,7 +79,7 @@ describe("jsx template 测试", async () => {
       .includes("description={i18next.t");
   });
   test("import 保持", () => {
-    expect(data).include(`url_info`).includes("../info").includes("@/info");
+    expect(data).include(`url_info`).includes("../info").includes("@/info").includes('"../../assets/logo/Apple Safari.svg"');
   });
   test("特殊字符保持", () => {
     expect(data).include(".woff2").include("#300").includes("100%").includes('const cant1 = "    \\n    "').includes('const cant = "\\n"')
@@ -115,7 +115,7 @@ describe("astro template 测试", async () => {
       }),
     })
   );
-  console.log(data)
+  // console.log(data)
   // console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
