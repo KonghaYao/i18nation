@@ -28,7 +28,7 @@ describe("vue template 测试", async () => {
     })
   );
   // console.log(data)
-  // console.log(json)
+  console.log(json)
   test("所有 key 在代码中存在", () => {
     Object.keys(json).forEach((key) => {
       expect(data).include(key);

@@ -74,17 +74,6 @@ export const createDefaultConfig = (config: ConfigFileType) => {
   return defaultConfig;
 };
 
-export default async (config: ConfigFileType) => {
-  const files = await glob(config.entry, { absolute: true });
-  for (const file of files) {
-    const resultContent = await sourceCodeReplacer(
-      file,
-      await fs.promises.readFile(file, "utf-8"),
-      createDefaultConfig(config)
-    );
-    await fs.promises.writeFile(file, resultContent);
-  }
-};
 export * from "./sourceCodeReplacer";
 export * from "./utils";
 export * from "./presets/index";
