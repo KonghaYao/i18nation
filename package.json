@@ -1,9 +1,11 @@
 {
     "name": "i18nation",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "",
     "main": "./dist/index.js",
-    "bin": "./dist/cli/cli.js",
+    "bin": {
+        "i18nation": "./dist/cli/cli.js"
+    },
     "files": [
         "dist"
     ],
