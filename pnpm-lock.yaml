@@ -23,6 +23,9 @@ importers:
       md5:
         specifier: ^2.3.0
         version: 2.3.0
+      safe-flat:
+        specifier: ^2.1.0
+        version: 2.1.0
     devDependencies:
       '@konghayao/i18n-cli':
         specifier: ^1.20.0
@@ -2047,6 +2050,9 @@ packages:
   sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
     engines: {node: '>=6'}
+
+  safe-flat@2.1.0:
+    resolution: {integrity: sha512-qr5iVWMYuN21dkijya23k6apc2BV1hiCG75vjToKDTzWlbR4SLbLbCnowPJ2pngnwGT2nMEeZKOglBE4pksj6g==}
 
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
@@ -4532,6 +4538,8 @@ snapshots:
   sade@1.8.1:
     dependencies:
       mri: 1.2.0
+
+  safe-flat@2.1.0: {}
 
   scheduler@0.23.2:
     dependencies:

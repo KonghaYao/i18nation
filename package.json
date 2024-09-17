@@ -23,7 +23,8 @@
         "fs-extra": "^11.2.0",
         "glob": "^11.0.0",
         "gogocode": "^1.0.55",
-        "md5": "^2.3.0"
+        "md5": "^2.3.0",
+        "safe-flat": "^2.1.0"
     },
     "devDependencies": {
         "@konghayao/i18n-cli": "^1.20.0",
