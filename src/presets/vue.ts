@@ -1,11 +1,11 @@
-import { PresetConfig } from ".";
+import { createKey, PresetConfig } from ".";
 import { ReplacerConfig } from "../replacer/interface";
 import md5 from 'md5'
 
 export const VuePresets = (context: PresetConfig) => {
     const config: ReplacerConfig = {
         stringReplacer(str, lang, tools) {
-            const hash = md5(str)
+            const hash = createKey(str, context)
 
             tools.wrapperChar = ''
             switch (lang) {
@@ -18,7 +18,7 @@ export const VuePresets = (context: PresetConfig) => {
             }
         },
         templateReplacer(str, lang) {
-            const hash = md5(str)
+            const hash = createKey(str, context)
             const slots: string[] = []
             switch (lang) {
                 case 'html':
@@ -40,7 +40,7 @@ export const VuePresets = (context: PresetConfig) => {
             throw new Error(`${lang} not support`)
         },
         attrReplacer(attrName, str, tools) {
-            const hash = md5(str)
+            const hash = createKey(str, context)
             context.json[hash] = str
             tools.replaceAttrName!(':' + attrName)
             return context.createTranslateCode(hash)

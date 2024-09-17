@@ -1,11 +1,11 @@
-import { PresetConfig } from ".";
+import { createKey, PresetConfig } from ".";
 import { ReplacerConfig } from "../replacer/interface";
 import md5 from 'md5'
 
 export const JSXPresets = (context: PresetConfig) => {
     const config: ReplacerConfig = {
         stringReplacer(str, lang, tools) {
-            const hash = md5(str)
+            const hash = createKey(str, context)
 
             tools.wrapperChar = ''
             // console.log(lang, str)
@@ -20,7 +20,7 @@ export const JSXPresets = (context: PresetConfig) => {
         },
         templateReplacer(str, lang) {
             // console.log(str,lang)
-            const hash = md5(str)
+            const hash = createKey(str, context)
             const slots: string[] = []
             switch (lang) {
                 case 'html':
@@ -42,7 +42,7 @@ export const JSXPresets = (context: PresetConfig) => {
             throw new Error(`${lang} not support`)
         },
         attrReplacer(attrName, str, tools) {
-            const hash = md5(str)
+            const hash = createKey(str, context)
             context.json[hash] = str
             // 当 jsx 直接父级为属性时，那么需要括号，否则不需要
             tools.wrapperChar = tools.parentType === 'JSXAttribute' ? '{}' : ""

@@ -7,5 +7,9 @@ export default {
         return `{{${key}}}`
     },
     outputJSON: 'test/i18n/zh-cn.json',
-    dryRun: true
+    dryRun: false,
+    // 修改 key 的生成方式
+    getKey(hash, source) {
+        return 'i18nation.' + hash
+    }
 }

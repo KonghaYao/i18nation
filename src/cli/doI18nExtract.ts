@@ -62,7 +62,7 @@ export async function doI18nExtract(config: I18NationConfig) {
             errorCount++
         }
     }
-    console.log(`✅ ${items.length - errorCount} | ❌ ${errorCount} `)
+    console.log(`✅ success ${items.length - errorCount} ❌ error ${errorCount} `)
     if (config.dryRun) return;
     return fs.outputFile(config.outputJSON, JSON.stringify(config.json, null, 2))
 }

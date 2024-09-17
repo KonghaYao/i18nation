@@ -10,7 +10,8 @@ const javascriptExtensions = [".ts", ".js", ".cjs", ".mjs", ".cts", ".mts"];
 const tsxExtensions = [".tsx", ".jsx"];
 
 /**
- * 获取源代码中的字符串并进行相应替换的函数, 此函数只做选中字符串的工作，替换需要使用其他方法
+ * @zh 获取源代码中的字符串并进行相应替换的函数, 此函数只做选中字符串的工作，替换需要使用其他方法
+ * @en Get the function that replaces strings in the source code
  */
 export const sourceCodeReplacer = async (
   filePath: string,

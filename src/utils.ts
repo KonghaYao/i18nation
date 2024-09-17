@@ -14,7 +14,10 @@ export function quoteString(str: string, quoteType = "") {
     }
     return `${quoteType![0] ?? ""}${str}${quoteType![1] ?? ''}`;
 }
-/** 保证 ast 类型，而不是报错 */
+/** 
+ * @zh 守护 ast 类型，而不是报错 
+ * @en Guard ast type, not error
+ */
 export function checkAst(ast: any): GoGoAST {
     if (ast.error) {
         console.log(ast.src)
