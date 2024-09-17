@@ -13,6 +13,8 @@ export interface I18NationConfig extends Omit<PresetConfig, 'filename'> {
      * 将会把 json 合并到这个 json 文件中
      */
     outputJSON: string
+    /** 将不会进行写入操作 */
+    dryRun: boolean
 }
 
 
@@ -29,6 +31,7 @@ export async function handleSingleFile(item: string, config: I18NationConfig) {
                 ...config
             })
         }))
+        if (config.dryRun) return;
         await fs.outputFile(item, result)
         console.log("✅", item)
     } catch (e) {
@@ -60,5 +63,6 @@ export async function doI18nExtract(config: I18NationConfig) {
         }
     }
     console.log(`✅ ${items.length - errorCount} | ❌ ${errorCount} `)
+    if (config.dryRun) return;
     return fs.outputFile(config.outputJSON, JSON.stringify(config.json, null, 2))
 }
