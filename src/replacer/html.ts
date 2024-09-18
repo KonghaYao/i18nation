@@ -66,7 +66,7 @@ export const getParentTagName = (nodePaths: NodePath[]) => {
 /** 获取最近级别的 attrName */
 export const getParentAttrName = (
     nodePaths: NodePath[],
-    allowFn: (nodeName: string, nodePath: NodePath) => boolean
+    allowFn: (nodeName: string, nodePath: NodePath) => boolean,
 ) => {
     return nodePaths.find((i) => {
         if (i.node.type === "JSXAttribute") {
@@ -92,7 +92,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                     if (ignoreHTMLTag?.includes(tagName)) return;
                     if (
                         parentChain.some((tagName) =>
-                            ignoreHTMLTag?.includes(tagName)
+                            ignoreHTMLTag?.includes(tagName),
                         )
                     ) {
                         return;
@@ -107,7 +107,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                     const tools = {
                         ...createTool(
                             nodePath,
-                            i.startWrapper.content + i.endWrapper.content
+                            i.startWrapper.content + i.endWrapper.content,
                         ), // TODO 暂时无用
                         replaceAttrName(name: string) {
                             i.key.content = name;
@@ -116,7 +116,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                     const newValue = config.attrReplacer(
                         attrName.toString(),
                         value,
-                        tools
+                        tools,
                     );
                     i.value.content = newValue;
                     i.startWrapper.content = tools.wrapperChar[0];
@@ -133,7 +133,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                 // @ts-ignore
                 const textNodes = children.filter(
                     (child) =>
-                        child.nodeType === "text" || child.type === "JSXText"
+                        child.nodeType === "text" || child.type === "JSXText",
                 );
 
                 if (!textNodes.length) return;
@@ -144,7 +144,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
 
                     if (isVueTemplateSnippets(text)) {
                         updateTextNode(ast, (text) =>
-                            config.templateReplacer(text, "html")
+                            config.templateReplacer(text, "html"),
                         );
                         return;
                     }
@@ -155,7 +155,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                         };
                         return quoteString(
                             config.stringReplacer(text, "html", tools),
-                            tools.wrapperChar
+                            tools.wrapperChar,
                         );
                     });
                 });

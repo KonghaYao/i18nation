@@ -1,10 +1,10 @@
 import g from "url_info";
 import k from "../info";
 import d from "@/info";
-import AppleSafariImage from '../../assets/logo/Apple Safari.svg';
+import AppleSafariImage from "../../assets/logo/Apple Safari.svg";
 export default () => {
     // 单个单词：外部扩展为不被选中
-    const info = "hello"
+    const info = "hello";
     const data = "useful-info";
     const enumWord = "TEST_KEY";
     const percent = "100%";

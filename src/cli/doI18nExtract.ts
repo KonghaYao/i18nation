@@ -24,11 +24,11 @@ export async function handleSingleFile(item: string, config: I18NationConfig) {
                     filename: item,
                     ...config,
                 }),
-            })
+            }),
         );
         if (config.dryRun) return;
         await fs.outputFile(item, result);
-        console.log("\t✅", item);
+        console.log("  ✅", item);
     } catch (e) {
         console.error("❌", item, e);
         throw e;
@@ -59,7 +59,7 @@ export async function doI18nExtract(config: I18NationConfig) {
         }
     }
     console.log(
-        `✅ success ${items.length - errorCount} ❌ error ${errorCount} `
+        `✅ success ${items.length - errorCount}\n❌ error ${errorCount} `,
     );
     if (config.dryRun) return;
     return injectJSON(
@@ -70,7 +70,7 @@ export async function doI18nExtract(config: I18NationConfig) {
                 mode: "flat",
                 indent: 2,
             },
-            config.jsonConfig ?? {}
-        )
+            config.jsonConfig ?? {},
+        ),
     );
 }

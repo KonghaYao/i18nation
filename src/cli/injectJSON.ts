@@ -4,7 +4,7 @@ import { unflatten } from "safe-flat";
 export async function injectJSON(
     path: string,
     newJSON: Record<string, any>,
-    config: Required<NonNullable<I18NationConfig["jsonConfig"]>>
+    config: Required<NonNullable<I18NationConfig["jsonConfig"]>>,
 ) {
     let resultJSON: any = newJSON;
     switch (config.mode) {

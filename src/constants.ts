@@ -4,9 +4,9 @@ export const lineBreak = "#LINE_BREAK#";
 /** 替换代码中的特殊符号 */
 export const ReplaceSpecialChars = {
     replace(str: string) {
-        return str.replace(/\n/g, lineBreak)
+        return str.replace(/\n/g, lineBreak);
     },
     unReplace(str: string) {
-        return str.replace(new RegExp(lineBreak, 'g'), "\\n")
-    }
-}
+        return str.replace(new RegExp(lineBreak, "g"), "\\n");
+    },
+};

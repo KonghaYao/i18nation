@@ -21,7 +21,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 const matchedText = match.str[0].value;
                 const pChain = getParentChain(nodePath);
                 const attrTag = pChain.find(
-                    (i) => i.node.type === "JSXAttribute"
+                    (i) => i.node.type === "JSXAttribute",
                 );
 
                 // 忽略 jsx 的 attr 中的字符串
@@ -38,9 +38,9 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                         config.attrReplacer(
                             attrName.toString(),
                             matchedText,
-                            tools
+                            tools,
                         ),
-                        tools.wrapperChar
+                        tools.wrapperChar,
                     );
                 }
                 if (
@@ -49,15 +49,16 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     nodePath.parentPath.node.type === "ObjectProperty" ||
                     pChain.some((i) => i.node.type === "ImportDeclaration")
                 ) {
-                    return quoteString(matchedText, tools.wrapperChar);
+                    // 传出 null 可以跳过
+                    return null as any;
                 }
                 const replaced = config.stringReplacer(
                     matchedText,
                     "js",
-                    tools
+                    tools,
                 );
                 return ReplaceSpecialChars.replace(
-                    quoteString(replaced, tools.wrapperChar)
+                    quoteString(replaced, tools.wrapperChar),
                 );
             })
             // \` 不作为 jsx 标签属性的边界
@@ -76,11 +77,11 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                                 [
                                     "MemberExpression",
                                     "TaggedTemplateExpression",
-                                ].includes(i)
+                                ].includes(i),
                             )
                     ) {
                         // console.log(sourceCode)
-                        return sourceCode;
+                        return null as any;
                     }
                     // 检查 html 属性
                     if (
@@ -89,7 +90,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                             return config.ignore?.HTMLTag?.includes(i);
                         })
                     ) {
-                        return sourceCode;
+                        return null as any;
                     }
                     let tag = getParentAttrName(nodePaths, () => true);
                     if (tag) {
@@ -102,7 +103,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                             /** @ts-ignore */
                             tag.node.name.name,
                             sourceCode,
-                            tools
+                            tools,
                         );
                     }
                     // console.log(nodePath.parentPath.node,sourceCode)

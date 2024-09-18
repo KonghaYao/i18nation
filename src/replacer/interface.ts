@@ -1,12 +1,11 @@
-
 export interface Tools {
-    /** 
+    /**
      * 左右两侧的包裹字符, 第一二字符为左右字符
      * @default ''
      */
     wrapperChar: string;
-    replaceAttrName?: (name: string) => void
-    parentType: string
+    replaceAttrName?: (name: string) => void;
+    parentType: string;
 }
 
 export interface ReplacerConfig {
@@ -36,7 +35,7 @@ export interface ReplacerConfig {
      */
     attrReplacer: (attrName: string, str: string, tools: Tools) => string;
     ignore: {
-        HTMLTag?: string[]
-        regexp?: RegExp[]
-    }
+        HTMLTag?: string[];
+        regexp?: RegExp[];
+    };
 }

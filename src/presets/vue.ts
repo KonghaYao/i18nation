@@ -27,9 +27,9 @@ export const VuePresets = (context: PresetConfig) => {
                         (_, formatter) => {
                             slots.push(formatter);
                             return context.createStringSlot(
-                                (slots.length - 1).toString()
+                                (slots.length - 1).toString(),
                             );
-                        }
+                        },
                     );
                     if (replacedHTML.replace(/[\d\{\}\s]*/g, "").length === 0) {
                         // console.log();
@@ -38,7 +38,7 @@ export const VuePresets = (context: PresetConfig) => {
                     context.json[hash] = replacedHTML;
                     return `{{ ${context.createTranslateCode(
                         hash,
-                        `[${slots.join(",")}]`
+                        `[${slots.join(",")}]`,
                     )} }}`;
                 case "js":
                     const replaced = str.replace(
@@ -46,14 +46,14 @@ export const VuePresets = (context: PresetConfig) => {
                         (_, formatter) => {
                             slots.push(formatter);
                             return context.createStringSlot(
-                                (slots.length - 1).toString()
+                                (slots.length - 1).toString(),
                             );
-                        }
+                        },
                     );
                     context.json[hash] = replaced;
                     return context.createTranslateCode(
                         hash,
-                        `[${slots.join(",")}]`
+                        `[${slots.join(",")}]`,
                     );
             }
             throw new Error(`${lang} not support`);

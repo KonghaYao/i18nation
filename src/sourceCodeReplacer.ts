@@ -14,32 +14,32 @@ const tsxExtensions = [".tsx", ".jsx"];
  * @en Get the function that replaces strings in the source code
  */
 export const sourceCodeReplacer = async (
-  filePath: string,
-  code: string,
-  config: ReplacerConfig
+    filePath: string,
+    code: string,
+    config: ReplacerConfig,
 ) => {
-  const ext = path.extname(filePath);
-  let replacer: (ast: GoGoAST) => GoGoAST;
-  let ast: GoGoAST;
-  if (javascriptExtensions.includes(ext)) {
-    replacer = createJsReplacer(config);
-    ast = $(code);
-  } else if (tsxExtensions.includes(ext)) {
-    replacer = createJsxReplacer(config);
-    ast = $(code);
-  } else if (ext === ".vue") {
-    replacer = createVueReplacer(config);
-    ast = $(code, {
-      parseOptions: {
-        language: "vue",
-      },
-    });
-  } else if (ext === ".astro") {
-    /** @ts-ignore */
-    replacer = AstroPlugin.createReplacer(config);
-    /** @ts-ignore */
-    ast = AstroPlugin.createAST(filePath, code, config);
-  }
-  const result = replacer!(ast!);
-  return ReplaceSpecialChars.unReplace(result.root().generate());
+    const ext = path.extname(filePath);
+    let replacer: (ast: GoGoAST) => GoGoAST;
+    let ast: GoGoAST;
+    if (javascriptExtensions.includes(ext)) {
+        replacer = createJsReplacer(config);
+        ast = $(code);
+    } else if (tsxExtensions.includes(ext)) {
+        replacer = createJsxReplacer(config);
+        ast = $(code);
+    } else if (ext === ".vue") {
+        replacer = createVueReplacer(config);
+        ast = $(code, {
+            parseOptions: {
+                language: "vue",
+            },
+        });
+    } else if (ext === ".astro") {
+        /** @ts-ignore */
+        replacer = AstroPlugin.createReplacer(config);
+        /** @ts-ignore */
+        ast = AstroPlugin.createAST(filePath, code, config);
+    }
+    const result = replacer!(ast!);
+    return ReplaceSpecialChars.unReplace(result.root().generate());
 };
