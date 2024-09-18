@@ -2,6 +2,7 @@ import { glob } from "glob";
 import { createDefaultConfig } from "../index.js";
 import { sourceCodeReplacer } from "../sourceCodeReplacer.js";
 import { JSXPresets } from "../presets/jsx.js";
+import { VuePresets } from "../presets/vue.js";
 import fs from "fs-extra";
 import { injectJSON } from "./injectJSON.js";
 import { I18NationConfig } from "./I18NationConfig.js";
@@ -12,13 +13,14 @@ import { flatten } from "safe-flat";
  */
 export async function handleSingleFile(item: string, config: I18NationConfig) {
     const content = await fs.readFile(item, "utf-8");
+    const presets = config.presets === 'vue' ? VuePresets : JSXPresets;
     try {
         const result = await sourceCodeReplacer(
             item,
             content,
             createDefaultConfig({
                 entry: [],
-                ...JSXPresets({
+                ...presets({
                     filename: item,
                     ...config,
                 }),
