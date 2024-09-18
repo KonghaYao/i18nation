@@ -25,14 +25,17 @@ describe("vue template 测试", async () => {
                     return `{{${key}}}`;
                 },
             }),
-        })
+        }),
     );
-    // console.log(data);
+    // console.log({ data });
     // console.log(json)
     test("所有 key 在代码中存在", () => {
         Object.keys(json).forEach((key) => {
             expect(data).include(key);
         });
+    });
+    test("无开头空行", () => {
+        expect(data.startsWith("<template>")).toBe(true);
     });
     test("alt 属性被替换", () => {
         expect(data)
@@ -62,7 +65,7 @@ describe("jsx template 测试", async () => {
                     return `{${key}}`;
                 },
             }),
-        })
+        }),
     );
     // console.log(data);
     // console.log(json)
@@ -102,7 +105,7 @@ describe("jsx template 测试", async () => {
     test("保持 URL 模板", () => {
         expect(data)
             .include(
-                "https://jsdelivr.deno.dev/npm/font-analyze@1.3.3/data/${name}"
+                "https://jsdelivr.deno.dev/npm/font-analyze@1.3.3/data/${name}",
             )
             .includes("`/packages/${font}/dist/${fileName}/result.css`");
     });
@@ -130,7 +133,7 @@ describe("astro template 测试", async () => {
                     return `{${key}}`;
                 },
             }),
-        })
+        }),
     );
     // console.log(data)
     // console.log(json)
@@ -150,7 +153,7 @@ describe("astro template 测试", async () => {
     });
     test("url 保持", () => {
         expect(data).includes(
-            "`/packages/${font}/dist/${fileName}/result.css`"
+            "`/packages/${font}/dist/${fileName}/result.css`",
         );
     });
     test("style 保持", () => {
@@ -185,7 +188,7 @@ describe("astro void template 测试", async () => {
                     return `{${key}}`;
                 },
             }),
-        })
+        }),
     );
     // console.log(data)
     test("void header 保持", () => {

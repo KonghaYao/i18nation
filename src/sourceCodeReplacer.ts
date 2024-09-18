@@ -41,5 +41,10 @@ export const sourceCodeReplacer = async (
         ast = AstroPlugin.createAST(filePath, code, config);
     }
     const result = replacer!(ast!);
-    return ReplaceSpecialChars.unReplace(result.root().generate());
+    let finalResult = ReplaceSpecialChars.unReplace(result.root().generate());
+    if (ext === ".vue") {
+        // vue 不需要开头空行
+        finalResult = finalResult.trimStart();
+    }
+    return finalResult;
 };
