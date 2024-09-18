@@ -16,7 +16,7 @@
     "scripts": {
         "test": "vitest ./test/*",
         "build": "rm -rf dist&&tsc -p tsconfig.build.json",
-        "prepublish": "pnpm test --run && pnpm build"
+        "prepublish": "vitest ./test/* --run && pnpm build"
     },
     "keywords": [],
     "author": "",
