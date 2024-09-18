@@ -9,6 +9,7 @@ export interface I18NationConfig extends Omit<PresetConfig, "filename"> {
      * 将会把 json 合并到这个 json 文件中
      */
     outputJSON: string;
+    presets: 'vue'|'jsx';
 
     jsonConfig?: {
         /**
