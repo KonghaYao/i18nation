@@ -6,12 +6,14 @@
             <p class="err-msg">Soury,&nbsp;&nbsp;&nbsp; Invisible~</p>
             <p class="err-msg"> {{ 'info' }} </p>
             <p class="err-msg"> prefix{{ 'info' }}suffix </p>
+            <!--  不抽取内容 -->
+            <p>{{ item.desc }}</p>
             <!-- 需要抽取 alt 属性 -->
             <img class="err-msg" alt='important message' src='./index.jpg' /> 
-            <img class="err-msg" :alt='"important message"' src='./index.jpg' /> 
-            <style>
-            info mation
-            </style>
+            <img 
+                class="err-msg" :alt='"important message"' src='./index.jpg' 
+                title="左右双引号"
+            /> 
         </div>
     </section>
 </template>
@@ -37,5 +39,8 @@ const obj = {
 // 作为 key 永不选中
 const item = obj['name info']
 const item2 = obj[`name_${info}`]
-
+this.$message({
+    message: 'sorry，暂未完成此功能哟 ~',
+    type: 'warning'
+})
 </script>

@@ -13,7 +13,7 @@ import { flatten } from "safe-flat";
  */
 export async function handleSingleFile(item: string, config: I18NationConfig) {
     const content = await fs.readFile(item, "utf-8");
-    const presets = config.presets === 'vue' ? VuePresets : JSXPresets;
+    const presets = config.presets === "vue" ? VuePresets : JSXPresets;
     try {
         const result = await sourceCodeReplacer(
             item,
@@ -28,7 +28,7 @@ export async function handleSingleFile(item: string, config: I18NationConfig) {
         );
         if (config.dryRun) return;
         await fs.outputFile(item, result);
-        console.log("✅", item);
+        console.log("\t✅", item);
     } catch (e) {
         console.error("❌", item, e);
         throw e;
