@@ -1,4 +1,4 @@
-import { GoGoAST } from "gogocode";
+import { GoGoAST } from "go-better-code";
 
 export const isOneWord = (str: string) => {
     if (!str.trim()) return true;

@@ -1,4 +1,4 @@
-import { GoGoAST, NodePath } from "gogocode";
+import { GoGoAST, NodePath } from "go-better-code";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
 import { getParentAttrName, getParentChain, getParentTagName } from "./html";

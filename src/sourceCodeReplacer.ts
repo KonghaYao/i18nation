@@ -1,4 +1,4 @@
-import $, { GoGoAST } from "gogocode";
+import $, { GoGoAST } from "go-better-code";
 import { ReplacerConfig } from "./replacer/interface";
 import path from "path";
 import { createReplacer as createJsxReplacer } from "./replacer/jsx";

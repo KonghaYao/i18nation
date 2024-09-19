@@ -18,7 +18,8 @@
         </div>
     </section>
 </template>
-<script>
+<script setup lang='ts'>
+const tsExpression = [] satisfies string[]
 export default {
     name: '404',
 };

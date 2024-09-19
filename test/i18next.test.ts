@@ -43,7 +43,7 @@ describe("vue template 测试", async () => {
             .include(`:title='i18next.t("`);
     });
     test("不抽取内容", () => {
-        expect(data).include("<p>{{ item.desc }}</p>").includes('<span plant></span>');
+        expect(data).include("<p>{{ item.desc }}</p>").includes('<span plant></span>').include("satisfies string[]")
     });
 });
 
@@ -102,6 +102,9 @@ describe("jsx template 测试", async () => {
             .includes('const cant = "\\n"')
             .include('<span plant></span>');
     });
+    test("typescript 保持",()=>{
+        expect(data).include("satisfies string[]")
+    })
     test("保持 URL 模板", () => {
         expect(data)
             .include(

@@ -61,6 +61,8 @@ export default () => {
     const cant = "\n";
     const cant1 = "    \n    ";
 
+    const tsExpression = [] satisfies string[]
+
     return (
         <section class="container">
             <div class="error-bg">

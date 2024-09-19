@@ -5,7 +5,7 @@ import sourceCode from './samples/sample.jsx?raw'
 describe('jsx 测试', async () => {
     const data = await sourceCodeReplacer('index.jsx', sourceCode, {
         stringReplacer(str, lang) {
-            console.log(str)
+            // console.log(str)
             if (isOneWord(str)) return str
             return `${str.toUpperCase() + "_REPLACED"}`
 
@@ -21,7 +21,7 @@ describe('jsx 测试', async () => {
             return str
         }
     })
-    console.log(data)
+    // console.log(data)
     it("dom 纯文本测试", () => {
         expect(data).include('404 RIGHTTHISWAY_REPLACED')
     })

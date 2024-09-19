@@ -3,7 +3,7 @@ import { htmlCommentToJsx, jsxCommentToHtml } from "../utils";
 import { ReplacerConfig } from "./interface";
 import { createJSReplacer } from "./javascript";
 import { createReplacer as createJSXReplacer } from "./jsx";
-import $, { GoGoAST } from "gogocode";
+import $, { GoGoAST } from "go-better-code";
 
 const frontmatterRegex = /^\n*?---\s*([\s\S]*?)\n---\s*/;
 

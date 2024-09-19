@@ -1,5 +1,5 @@
 // 随便测试用
-import $ from 'gogocode';
+import $ from 'go-better-code';
 
 const source = `
 <template>

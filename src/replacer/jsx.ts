@@ -1,4 +1,4 @@
-import { GoGoAST } from "gogocode";
+import { GoGoAST } from "go-better-code";
 import { ReplacerConfig } from "./interface";
 import { createJSReplacer } from "./javascript";
 import { createHTMLReplacer } from "./html";
