@@ -27,8 +27,7 @@ describe("vue template 测试", async () => {
             }),
         }),
     );
-    // console.log({ data });
-    // console.log(json)
+    // console.log(data);
     test("所有 key 在代码中存在", () => {
         Object.keys(json).forEach((key) => {
             expect(data).include(key);
@@ -44,7 +43,7 @@ describe("vue template 测试", async () => {
             .include(`:title='i18next.t("`);
     });
     test("不抽取内容", () => {
-        expect(data).include("<p>{{ item.desc }}</p>");
+        expect(data).include("<p>{{ item.desc }}</p>").includes('<span plant></span>');
     });
 });
 
@@ -100,7 +99,8 @@ describe("jsx template 测试", async () => {
             .include("#300")
             .includes("100%")
             .includes('const cant1 = "    \\n    "')
-            .includes('const cant = "\\n"');
+            .includes('const cant = "\\n"')
+            .include('<span plant></span>');
     });
     test("保持 URL 模板", () => {
         expect(data)

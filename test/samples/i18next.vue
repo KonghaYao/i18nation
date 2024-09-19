@@ -14,6 +14,7 @@
                 class="err-msg" :alt='"important message"' src='./index.jpg' 
                 title="左右双引号"
             /> 
+            <span plant></span>
         </div>
     </section>
 </template>
