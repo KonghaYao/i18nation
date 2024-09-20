@@ -19,6 +19,7 @@
     </section>
 </template>
 <script setup lang='ts'>
+import.meta.env.HELLO;
 const tsExpression = [] satisfies string[]
 export default {
     name: '404',

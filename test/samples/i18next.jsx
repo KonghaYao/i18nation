@@ -62,7 +62,8 @@ export default () => {
     const cant1 = "    \n    ";
 
     const tsExpression = [] satisfies string[]
-
+    
+    import.meta.env.HELLO;
     return (
         <section class="container">
             <div class="error-bg">
@@ -131,3 +132,4 @@ export default () => {
         </section>
     );
 };
+
