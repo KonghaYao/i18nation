@@ -1,5 +1,9 @@
 export default () => {
     const info = "This is a message";
+    const a = {
+        info:"中文",
+        template:`dfjaldjk${info}`
+    }
     return (
         <section class="container">
             <div class="error-bg">

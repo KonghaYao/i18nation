@@ -4,6 +4,7 @@ import md5 from "md5";
 
 export const JSXPresets = (context: PresetConfig) => {
     const config: ReplacerConfig = {
+        propertyReplacer: context.propertyReplacer,
         stringReplacer(str, lang, tools) {
             const hash = createKey(str, context);
 

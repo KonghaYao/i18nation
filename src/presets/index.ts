@@ -8,6 +8,7 @@ export interface PresetConfig {
     createTranslateCode: (hash: string, params?: string) => string;
     /** 转 DOM 结构代码中的文本为模板字符串的方式 */
     createStringSlot: (key: string) => string;
+    propertyReplacer?: ReplacerConfig['propertyReplacer']
     /** 翻译 key 的生成方式 */
     getKey?: (hash: string, source: string) => string;
     ignore?: ReplacerConfig["ignore"];

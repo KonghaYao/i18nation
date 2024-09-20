@@ -43,6 +43,22 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                         tools.wrapperChar,
                     );
                 }
+
+                if (
+                    nodePath.parentPath.node.type === "ObjectProperty" &&
+                    config.propertyReplacer
+                ) {
+                    return quoteString(
+                        config.propertyReplacer(
+                            /** @ts-ignore */
+                            nodePath.parentPath.node.key.name,
+                            matchedText,
+                            tools,
+                            nodePath,
+                        ),
+                        tools.wrapperChar,
+                    );
+                }
                 if (
                     nodePath.parentPath.node.type === "MemberExpression" ||
                     // 是 Object 的属性时，不进行处理

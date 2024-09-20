@@ -19,6 +19,10 @@ describe('jsx 测试', async () => {
                 return `测试${str}`
             }
             return str
+        },
+        propertyReplacer(...args){
+            // console.log(args)
+            return  null
         }
     })
     // console.log(data)

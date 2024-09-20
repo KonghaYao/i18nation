@@ -46,6 +46,7 @@ export async function doI18nExtract(config: I18NationConfig) {
 
     const items = glob.sync(config.src, {
         absolute: true,
+        ignore: config.exclude
     });
     if (!items.length)
         return console.log("❌ no files to extract i18n strings");
