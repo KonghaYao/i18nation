@@ -18,8 +18,11 @@ export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
  * 检测父级是否存在注释禁止抽取
  */
 export const hasCommentForIgnore = (nodePath: NodePath) => {
-    const comment =
-        nodePath?.parentPath?.parentPath?.node?.leadingComments?.at(-1)?.value;
+    const comment = (
+        nodePath.node.leadingComments ||
+        nodePath.node.innerComments ||
+        nodePath?.parentPath?.parentPath?.node?.leadingComments
+    )?.at(-1)?.value;
     if (comment && /^[\*|\s]*@i18n-ignore/.test(comment)) {
         return true;
     }
@@ -30,9 +33,8 @@ export const createJSReplacer = (config: ReplacerConfig) => {
     return (ast: GoGoAST) =>
         checkAst(ast)
             .replace(`'$_$str'`, (match, nodePath) => {
-                if (hasCommentForIgnore(nodePath)) {
-                    return null;
-                }
+                if (hasCommentForIgnore(nodePath)) return null;
+
                 const tools = createTool(nodePath);
                 const matchedText = match.str[0].value;
                 const pChain = getParentChain(nodePath);
@@ -44,6 +46,8 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 if (attrTag) {
                     /** @ts-ignore */
                     const attrName = attrTag.node.name.name;
+                    if (hasCommentForIgnore(attrTag)) return null;
+
                     const replaceAttrName = (name: string) => {
                         /** @ts-ignore */
                         attrTag.node.name.name = name;

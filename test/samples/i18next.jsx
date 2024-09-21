@@ -114,6 +114,15 @@ export default () => {
                     }}>
                     {sub_text}
                 </div>
+                <div 
+                    // @i18n-ignore
+                    title='不进行抽取 ignore'
+                > 
+                </div>
+                <div> 
+                    {/* @i18n-ignore */}
+                    不进行抽取DOM ignore
+                </div>
 
                 {/*  正确解析花括号 */}
                 <div
@@ -121,7 +130,7 @@ export default () => {
                     sample={" \" ' @ "}></div>
 
                 {/* 不解析 class 属性 */}
-                <div
+                <div 
                     class={
                         "mx-4 flex h-40 overflow-auto rounded-md bg-gray-300  p-8 md:h-80 " +
                         props.class

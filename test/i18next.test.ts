@@ -126,7 +126,9 @@ describe("jsx template 测试", async () => {
     test("注释", () => {
         expect(data)
             .includes("comment for ban")
-            .includes('`prefix-ignore${info + "23232"}after`');
+            .includes('`prefix-ignore${info + "23232"}after`')
+            .includes("不进行抽取 ignore")
+            .includes("不进行抽取DOM ignore");
     });
 });
 describe("astro template 测试", async () => {

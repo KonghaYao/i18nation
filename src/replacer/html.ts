@@ -1,7 +1,7 @@
 import { GoGoAST, NodePath } from "go-better-code";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
-import { createTool } from "./javascript";
+import { createTool, hasCommentForIgnore } from "./javascript";
 function updateTextNode(
     ast: any,
     getNewValue: (oldContent: string) => string | null,
@@ -135,16 +135,28 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                 const children: any[] =
                     astNode.content?.children || astNode.children || [];
                 // console.log(children)
-                // @ts-ignore
-                const textNodes = children.filter(
-                    (child) =>
-                        child.nodeType === "text" || child.type === "JSXText",
-                );
 
-                if (!textNodes.length) return;
-
-                textNodes.forEach((ast: any) => {
+                children.forEach((ast: any, index) => {
+                    if (ast.nodeType !== "text" && ast.type !== "JSXText")
+                        return;
                     const text = getTextNodeContent(ast);
+
+                    // 处理 jsx 中的 ignore 注释
+                    if (
+                        children[index - 1]?.type ===
+                            "JSXExpressionContainer" &&
+                        children[index - 1]?.expression?.type ===
+                            "JSXEmptyExpression" &&
+                        hasCommentForIgnore(
+                            // @ts-ignore
+                            {
+                                node: children[index - 1]?.expression,
+                            },
+                        )
+                    ) {
+                        return;
+                    }
+
                     if (!text.trim()) return false;
 
                     if (isVueTemplateSnippets(text)) {
