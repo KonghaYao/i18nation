@@ -11,10 +11,17 @@
             <!-- 需要抽取 alt 属性 -->
             <img class="err-msg" alt='important message' src='./index.jpg' /> 
             <img 
-                class="err-msg" :alt='"important message"' src='./index.jpg' 
-                title="左右双引号"
+            class="err-msg" :alt='"important message"' src='./index.jpg' 
+            title="左右双引号"
             /> 
             <span plant></span>
+
+            <p class="err-msg"> 
+                <!-- @i18n-ignore -->
+                忽略DOM文本
+
+                839483943
+             </p>
         </div>
     </section>
 </template>

@@ -29,7 +29,7 @@ describe("vue template 测试", async () => {
             }),
         }),
     );
-    // console.log(data);
+    console.log(data);
     test("所有 key 在代码中存在", () => {
         Object.keys(json).forEach((key) => {
             expect(data).include(key);
@@ -48,7 +48,8 @@ describe("vue template 测试", async () => {
         expect(data)
             .include("<p>{{ item.desc }}</p>")
             .includes("<span plant></span>")
-            .include("satisfies string[]");
+            .include("satisfies string[]")
+            .includes("忽略DOM文本");
     });
 });
 
@@ -123,7 +124,7 @@ describe("jsx template 测试", async () => {
             .includes('"font-feature-settings": `"${i}" 0`,')
             .includes("const temp = html`<a");
     });
-    test("注释", () => {
+    test("ignore注释", () => {
         expect(data)
             .includes("comment for ban")
             .includes('`prefix-ignore${info + "23232"}after`')

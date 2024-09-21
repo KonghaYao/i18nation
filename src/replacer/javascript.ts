@@ -14,6 +14,8 @@ export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
     return tools;
 };
 
+export const isIgnoreComment = (comment?: string) =>
+    comment && /^[\*|\s]*@i18n-ignore/.test(comment);
 /**
  * 检测父级是否存在注释禁止抽取
  */
@@ -23,7 +25,7 @@ export const hasCommentForIgnore = (nodePath: NodePath) => {
         nodePath.node.innerComments ||
         nodePath?.parentPath?.parentPath?.node?.leadingComments
     )?.at(-1)?.value;
-    if (comment && /^[\*|\s]*@i18n-ignore/.test(comment)) {
+    if (isIgnoreComment(comment)) {
         return true;
     }
     return;

@@ -1,7 +1,7 @@
 import { GoGoAST, NodePath } from "go-better-code";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
-import { createTool, hasCommentForIgnore } from "./javascript";
+import { createTool, hasCommentForIgnore, isIgnoreComment } from "./javascript";
 function updateTextNode(
     ast: any,
     getNewValue: (oldContent: string) => string | null,
@@ -153,12 +153,18 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                                 node: children[index - 1]?.expression,
                             },
                         )
-                    ) {
+                    )
                         return;
-                    }
 
                     if (!text.trim()) return false;
 
+                    if (
+                        children[index - 1]?.nodeType === "comment" &&
+                        isIgnoreComment(
+                            children[index - 1].content.value.content,
+                        )
+                    )
+                        return;
                     if (isVueTemplateSnippets(text)) {
                         updateTextNode(ast, (text) =>
                             config.templateReplacer(text, "html"),
