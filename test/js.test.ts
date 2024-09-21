@@ -16,6 +16,7 @@ describe("纯 js 测试", async () => {
         attrReplacer(attrName, str) {
             return str;
         },
+        ignore: {},
     });
     // console.log(data)
     it("纯文本 单个单词测试", () => {

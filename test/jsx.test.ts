@@ -1,40 +1,38 @@
-import { isOneWord, sourceCodeReplacer } from '../src'
-import { describe, expect, it } from 'vitest'
-import sourceCode from './samples/sample.jsx?raw'
+import { isOneWord, sourceCodeReplacer } from "../src";
+import { describe, expect, it } from "vitest";
+import sourceCode from "./samples/sample.jsx?raw";
 
-describe('jsx 测试', async () => {
-    const data = await sourceCodeReplacer('index.jsx', sourceCode, {
+describe("jsx 测试", async () => {
+    const data = await sourceCodeReplacer("index.jsx", sourceCode, {
         stringReplacer(str, lang) {
             // console.log(str)
-            if (isOneWord(str)) return str
-            return `${str.toUpperCase() + "_REPLACED"}`
-
+            if (isOneWord(str)) return str;
+            return `${str.toUpperCase() + "_REPLACED"}`;
         },
         templateReplacer(str) {
-
-            return `\$t(${str})`
+            return `\$t(${str})`;
         },
         attrReplacer(attrName, str) {
-            if (attrName.toLocaleLowerCase() === 'alt') {
-                return `测试${str}`
+            if (attrName.toLocaleLowerCase() === "alt") {
+                return `测试${str}`;
             }
-            return str
+            return str;
         },
-        propertyReplacer(...args){
+        propertyReplacer(...args) {
             // console.log(args)
-            return  null
-        }
-    })
+            return null;
+        },
+        ignore: {},
+    });
     // console.log(data)
     it("dom 纯文本测试", () => {
-        expect(data).include('404 RIGHTTHISWAY_REPLACED')
-    })
+        expect(data).include("404 RIGHTTHISWAY_REPLACED");
+    });
     it("dom 中间挖空测试", () => {
-
-        expect(data).include('prefix{info}suffix')
-    })
+        expect(data).include("prefix{info}suffix");
+    });
     it("dom 属性测试", () => {
-        expect(data).include('alt="测试important message"')
-        expect(data).include('alt={id + 2}')
-    })
+        expect(data).include('alt="测试important message"');
+        expect(data).include("alt={id + 2}");
+    });
 });

@@ -2,11 +2,15 @@ import { GoGoAST, NodePath } from "go-better-code";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
 import { createTool } from "./javascript";
-function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
+function updateTextNode(
+    ast: any,
+    getNewValue: (oldContent: string) => string | null,
+) {
     if (ast.nodeType === "text") {
         const oldContent = getTextNodeContent(ast);
         const oldContentLength = oldContent.length;
         const newValue = getNewValue(oldContent);
+        if (!newValue) return;
         const newContentLength = newValue.length;
 
         // 更新文本内容
@@ -20,8 +24,8 @@ function updateTextNode(ast: any, getNewValue: (oldContent: string) => string) {
         const oldContent = getTextNodeContent(ast);
         const oldContentLength = oldContent.length;
         const newValue = getNewValue(oldContent);
+        if (!newValue) return;
         const newContentLength = newValue.length;
-
         // 更新文本内容
         ast.value = newValue;
 
@@ -118,6 +122,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                         value,
                         tools,
                     );
+                    if (!newValue) return;
                     i.value.content = newValue;
                     i.startWrapper.content = tools.wrapperChar[0];
                     i.endWrapper.content = tools.wrapperChar[1];

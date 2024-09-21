@@ -1,6 +1,6 @@
 {
     "name": "i18nation",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "description": "",
     "main": "./dist/index.js",
     "bin": {
@@ -25,7 +25,7 @@
         "c12": "^1.11.2",
         "fs-extra": "^11.2.0",
         "glob": "^11.0.0",
-        "go-better-code": "^1.1.0",
+        "go-better-code": "^1.1.1",
         "md5": "^2.3.0",
         "safe-flat": "^2.1.0"
     },

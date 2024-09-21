@@ -4,6 +4,7 @@ export default () => {
         info:"中文",
         template:`dfjaldjk${info}`
     }
+    const d = obj[`info${a.info}`]
     return (
         <section class="container">
             <div class="error-bg">

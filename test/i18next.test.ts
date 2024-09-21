@@ -1,5 +1,6 @@
 import {
     createDefaultConfig,
+    defineConfig,
     JSXPresets,
     sourceCodeReplacer,
     VuePresets,
@@ -8,6 +9,7 @@ import { expect, describe, it, test } from "vitest";
 import sourceCodeWithTemplate from "./samples/i18next.vue?raw";
 import JSXSource from "./samples/i18next.jsx?raw";
 import AstroSource from "./samples/i18next.astro?raw";
+
 describe("vue template 测试", async () => {
     const json = {};
     const data = await sourceCodeReplacer(
@@ -43,7 +45,10 @@ describe("vue template 测试", async () => {
             .include(`:title='i18next.t("`);
     });
     test("不抽取内容", () => {
-        expect(data).include("<p>{{ item.desc }}</p>").includes('<span plant></span>').include("satisfies string[]")
+        expect(data)
+            .include("<p>{{ item.desc }}</p>")
+            .includes("<span plant></span>")
+            .include("satisfies string[]");
     });
 });
 
@@ -100,11 +105,11 @@ describe("jsx template 测试", async () => {
             .includes("100%")
             .includes('const cant1 = "    \\n    "')
             .includes('const cant = "\\n"')
-            .include('<span plant></span>');
+            .include("<span plant></span>");
     });
-    test("typescript 保持",()=>{
-        expect(data).include("satisfies string[]")
-    })
+    test("typescript 保持", () => {
+        expect(data).include("satisfies string[]");
+    });
     test("保持 URL 模板", () => {
         expect(data)
             .include(
@@ -117,6 +122,11 @@ describe("jsx template 测试", async () => {
             .include("` @font-face {font-family: '${fontFamily()}';src: url(${")
             .includes('"font-feature-settings": `"${i}" 0`,')
             .includes("const temp = html`<a");
+    });
+    test("注释", () => {
+        expect(data)
+            .includes("comment for ban")
+            .includes('`prefix-ignore${info + "23232"}after`');
     });
 });
 describe("astro template 测试", async () => {

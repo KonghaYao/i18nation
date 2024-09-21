@@ -1,7 +1,6 @@
 import { I18NationConfig } from "./cli/I18NationConfig";
 import { ReplacerConfig } from "./replacer/interface";
 import { isOneWord } from "./utils";
-
 export const defineConfig = (config: I18NationConfig) => config;
 
 export interface ConfigFileType extends ReplacerConfig {

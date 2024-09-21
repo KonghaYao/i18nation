@@ -13,10 +13,26 @@ export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
     };
     return tools;
 };
+
+/**
+ * 检测父级是否存在注释禁止抽取
+ */
+export const hasCommentForIgnore = (nodePath: NodePath) => {
+    const comment =
+        nodePath?.parentPath?.parentPath?.node?.leadingComments?.at(-1)?.value;
+    if (comment && /^[\*|\s]*@i18n-ignore/.test(comment)) {
+        return true;
+    }
+    return;
+};
+
 export const createJSReplacer = (config: ReplacerConfig) => {
     return (ast: GoGoAST) =>
         checkAst(ast)
             .replace(`'$_$str'`, (match, nodePath) => {
+                if (hasCommentForIgnore(nodePath)) {
+                    return null;
+                }
                 const tools = createTool(nodePath);
                 const matchedText = match.str[0].value;
                 const pChain = getParentChain(nodePath);
@@ -68,6 +84,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     // 传出 null 可以跳过
                     return null as any;
                 }
+
                 const replaced = config.stringReplacer(
                     matchedText,
                     "js",
@@ -83,9 +100,11 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 const sourceCode = item.generate();
                 // console.log(sourceCode)
                 item.replace("`$_$str`", (matched, nodePath) => {
+                    if (hasCommentForIgnore(nodePath)) {
+                        return null;
+                    }
                     const tools = createTool(nodePath);
                     const nodePaths = getParentChain(nodePath);
-
                     if (
                         nodePaths
                             .map((i) => i.node.type)

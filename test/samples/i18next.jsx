@@ -15,8 +15,14 @@ export default () => {
     // 多个单词：必定选中
     const replaced = "hello world";
 
+    // @i18n-ignore
+    let replaced_comment = "comment for ban";
+
     // 模板字符串通通被选中
     const templateTest = `prefix${info + "23232"}after`;
+    
+    /** @i18n-ignore */
+    const templateTestDisabled = `prefix-ignore${info + "23232"}after`;
 
     const obj = {
         // value 均遵循单词方式，key 永不选中
