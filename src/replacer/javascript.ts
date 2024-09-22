@@ -45,7 +45,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                             metaTag?.node.openingElement.attributes.find(
                                 (i: any) => i.name.name === "name",
                             );
-                        if (!allowMetaName.includes(nameAttr.value.value)) {
+                        if (!allowMetaName.includes(nameAttr?.value?.value)) {
                             return null;
                         }
                     }
