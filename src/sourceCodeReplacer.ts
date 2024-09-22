@@ -17,11 +17,14 @@ export const sourceCodeReplacer = async (
     filePath: string,
     code: string,
     config: ReplacerConfig,
-) => {
+): Promise<string | null> => {
     const ext = path.extname(filePath);
     let replacer: (ast: GoGoAST) => GoGoAST;
     let ast: GoGoAST;
     if (javascriptExtensions.includes(ext)) {
+        // .d.ts 均不进行替换
+        if (ext.includes(".d.ts")) return null;
+
         replacer = createJsReplacer(config);
         ast = $(code);
     } else if (tsxExtensions.includes(ext)) {
