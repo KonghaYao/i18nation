@@ -50,9 +50,11 @@ export interface ReplacerConfig {
         propertyName: string,
         str: string,
         tools: Tools,
-        nodePath: NodePath
+        nodePath: NodePath,
     ) => string | null;
-    
+    /** 检查是否为替换后的代码 */
+    checkReplaced?: (str: string) => boolean | undefined;
+
     ignore: {
         HTMLTag?: string[];
         regexp?: RegExp[];

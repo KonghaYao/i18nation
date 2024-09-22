@@ -46,6 +46,11 @@ export const createDefaultConfig = (config: ConfigFileType) => {
     };
     const matchOneIgnoreRegExp = (str: string) =>
         ignore.regexp.some((reg) => reg.test(str));
+    const checkReplaced =
+        config.checkReplaced ??
+        ((str: string) => {
+            return /\b[0-9a-fA-F]{32}\b/.test(str);
+        });
     const defaultConfig: ReplacerConfig = {
         stringReplacer(str, lang, tools) {
             if (isOneWord(str)) return null;
@@ -63,6 +68,9 @@ export const createDefaultConfig = (config: ConfigFileType) => {
         },
         attrReplacer(attrName, str, replaceAttrName) {
             if (str.trim().length === 0) return null;
+            if (checkReplaced(str)) {
+                return null;
+            }
             if (matchOneIgnoreRegExp(str)) return null;
             if (replaceAttr[attrName.toLocaleLowerCase()]) {
                 return config.attrReplacer(attrName, str, replaceAttrName);

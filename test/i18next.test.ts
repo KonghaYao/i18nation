@@ -55,23 +55,25 @@ describe("vue template 测试", async () => {
 
 describe("jsx template 测试", async () => {
     const json = {};
-    const data = await sourceCodeReplacer(
-        "index.jsx",
-        JSXSource,
-        createDefaultConfig({
-            entry: [],
-            ...JSXPresets({
-                filename: "index.jsx",
-                json,
-                createTranslateCode(hash, params) {
-                    return `i18next.t("${hash}"${params ? `, ${params}` : ""})`;
-                },
-                createStringSlot(key) {
-                    return `{${key}}`;
-                },
+    const doIt = async (JSXSource) =>
+        await sourceCodeReplacer(
+            "index.jsx",
+            JSXSource,
+            createDefaultConfig({
+                entry: [],
+                ...JSXPresets({
+                    filename: "index.jsx",
+                    json,
+                    createTranslateCode(hash, params) {
+                        return `i18next.t("${hash}"${params ? `, ${params}` : ""})`;
+                    },
+                    createStringSlot(key) {
+                        return `{${key}}`;
+                    },
+                }),
             }),
-        }),
-    );
+        );
+    let data = await doIt(await doIt(JSXSource));
     console.log(data);
     // console.log(json)
     test("所有 key 在代码中存在", () => {

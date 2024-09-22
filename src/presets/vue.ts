@@ -5,6 +5,7 @@ import md5 from "md5";
 export const VuePresets = (context: PresetConfig) => {
     const config: ReplacerConfig = {
         propertyReplacer: context.propertyReplacer,
+        checkReplaced: context.checkReplaced,
         stringReplacer(str, lang, tools) {
             const hash = createKey(str, context);
 
