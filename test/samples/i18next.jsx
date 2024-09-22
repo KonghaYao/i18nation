@@ -143,6 +143,11 @@ export default () => {
 
                 <span sample={" \" ' ` "}></span>
                 <span plant></span>
+
+                {/* 不进行抽取 */}
+                <td>
+                    {item.coverage} ({item.support_count}/{item.area_count})
+                </td>
             </div>
         </section>
     );

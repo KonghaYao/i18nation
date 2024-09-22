@@ -26,7 +26,7 @@ export async function handleSingleFile(item: string, config: I18NationConfig) {
                 }),
             }),
         );
-        if (config.dryRun) return;
+        if (config.dryRun || !result) return;
         await fs.outputFile(item, result);
         console.log("  ✅", item);
     } catch (e) {
@@ -46,7 +46,7 @@ export async function doI18nExtract(config: I18NationConfig) {
 
     const items = glob.sync(config.src, {
         absolute: true,
-        ignore: config.exclude
+        ignore: config.exclude,
     });
     if (!items.length)
         return console.log("❌ no files to extract i18n strings");

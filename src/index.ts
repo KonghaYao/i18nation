@@ -48,26 +48,26 @@ export const createDefaultConfig = (config: ConfigFileType) => {
         ignore.regexp.some((reg) => reg.test(str));
     const defaultConfig: ReplacerConfig = {
         stringReplacer(str, lang, tools) {
-            if (isOneWord(str)) return str;
-            if (matchOneIgnoreRegExp(str)) return str;
+            if (isOneWord(str)) return null;
+            if (matchOneIgnoreRegExp(str)) return null;
             return config.stringReplacer(str, lang, tools);
         },
         templateReplacer(str, lang) {
-            if (str.trim().length === 0) return str;
+            if (str.trim().length === 0) return null;
             if (str.startsWith("`")) {
-                if (matchOneIgnoreRegExp(str.slice(1, -1))) return str;
+                if (matchOneIgnoreRegExp(str.slice(1, -1))) return null;
             } else {
-                if (matchOneIgnoreRegExp(str)) return str;
+                if (matchOneIgnoreRegExp(str)) return null;
             }
             return config.templateReplacer(str, lang);
         },
         attrReplacer(attrName, str, replaceAttrName) {
-            if (str.trim().length === 0) return str;
-            if (matchOneIgnoreRegExp(str)) return str;
+            if (str.trim().length === 0) return null;
+            if (matchOneIgnoreRegExp(str)) return null;
             if (replaceAttr[attrName.toLocaleLowerCase()]) {
                 return config.attrReplacer(attrName, str, replaceAttrName);
             }
-            return str;
+            return null;
         },
         ignore,
     };

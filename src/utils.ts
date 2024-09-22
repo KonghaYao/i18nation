@@ -2,7 +2,7 @@ import { GoGoAST } from "go-better-code";
 
 export const isOneWord = (str: string) => {
     if (!str.trim()) return true;
-    return /^[a-zA-Z|_|\-|0-9|*&^%$#@:=\+!,\.\/]+$/.test(str.trim());
+    return /^[a-zA-Z|_|\-|0-9|*&^%$#@:=\+!,\.\/\(\)]+$/.test(str.trim());
 };
 export function quoteString(str: string | null, quoteType = "") {
     if (str === null) return null;
