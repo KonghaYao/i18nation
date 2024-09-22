@@ -11,6 +11,7 @@ export default () => {
     const color = "#300";
     const ext = ".woff2";
     const void_str = "   ";
+    const emoji_str = " ❌ ";
 
     // 多个单词：必定选中
     const replaced = "hello world";

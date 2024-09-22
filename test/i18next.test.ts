@@ -29,7 +29,7 @@ describe("vue template 测试", async () => {
             }),
         }),
     );
-    console.log(data);
+    // console.log(data);
     test("所有 key 在代码中存在", () => {
         Object.keys(json).forEach((key) => {
             expect(data).include(key);
@@ -73,7 +73,8 @@ describe("jsx template 测试", async () => {
                 }),
             }),
         );
-    let data = await doIt(await doIt(JSXSource) as string);
+    // let data = await doIt(JSXSource);
+    let data = await doIt((await doIt(JSXSource)) as string);
     console.log(data);
     // console.log(json)
     test("所有 key 在代码中存在", () => {
@@ -108,7 +109,8 @@ describe("jsx template 测试", async () => {
             .includes("100%")
             .includes('const cant1 = "    \\n    "')
             .includes('const cant = "\\n"')
-            .include("<span plant></span>");
+            .include("<span plant></span>")
+            .includes(" ❌ ");
     });
     test("typescript 保持", () => {
         expect(data).include("satisfies string[]");
