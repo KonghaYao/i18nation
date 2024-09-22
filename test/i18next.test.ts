@@ -55,7 +55,7 @@ describe("vue template 测试", async () => {
 
 describe("jsx template 测试", async () => {
     const json = {};
-    const doIt = async (JSXSource) =>
+    const doIt = async (JSXSource: string) =>
         await sourceCodeReplacer(
             "index.jsx",
             JSXSource,
@@ -73,7 +73,7 @@ describe("jsx template 测试", async () => {
                 }),
             }),
         );
-    let data = await doIt(await doIt(JSXSource));
+    let data = await doIt(await doIt(JSXSource) as string);
     console.log(data);
     // console.log(json)
     test("所有 key 在代码中存在", () => {

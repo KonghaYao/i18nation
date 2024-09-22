@@ -6,6 +6,7 @@ import { createJSReplacer as createJsReplacer } from "./replacer/javascript";
 import { createReplacer as createVueReplacer } from "./replacer/vue";
 import AstroPlugin from "./replacer/astro";
 import { ReplaceSpecialChars } from "./constants";
+import { hasFileLevelCommentForIgnore } from "./utils/hasCommentForIgnore";
 const javascriptExtensions = [".ts", ".js", ".cjs", ".mjs", ".cts", ".mts"];
 const tsxExtensions = [".tsx", ".jsx"];
 
@@ -21,6 +22,7 @@ export const sourceCodeReplacer = async (
     const ext = path.extname(filePath);
     let replacer: (ast: GoGoAST) => GoGoAST;
     let ast: GoGoAST;
+
     if (javascriptExtensions.includes(ext)) {
         // .d.ts 均不进行替换
         if (ext.includes(".d.ts")) return null;
@@ -43,6 +45,8 @@ export const sourceCodeReplacer = async (
         /** @ts-ignore */
         ast = AstroPlugin.createAST(filePath, code, config);
     }
+    /** @ts-ignore */
+    if (hasFileLevelCommentForIgnore(ast)) return null;
     const result = replacer!(ast!);
     let finalResult = ReplaceSpecialChars.unReplace(result.root().generate());
     if (ext === ".vue") {

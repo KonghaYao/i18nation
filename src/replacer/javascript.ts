@@ -3,6 +3,7 @@ import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
 import { getParentAttrName, getParentChain, getParentTagName } from "./html";
 import { ReplaceSpecialChars } from "../constants";
+import { hasCommentForIgnore } from "../utils/hasCommentForIgnore";
 
 export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
     // @ts-ignore
@@ -12,23 +13,6 @@ export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
         parentType: nodePath.parentPath.node.type,
     };
     return tools;
-};
-
-export const isIgnoreComment = (comment?: string) =>
-    comment && /^[\*|\s]*@i18n-ignore/.test(comment);
-/**
- * 检测父级是否存在注释禁止抽取
- */
-export const hasCommentForIgnore = (nodePath: NodePath) => {
-    const comment = (
-        nodePath.node.leadingComments ||
-        nodePath.node.innerComments ||
-        nodePath?.parentPath?.parentPath?.node?.leadingComments
-    )?.at(-1)?.value;
-    if (isIgnoreComment(comment)) {
-        return true;
-    }
-    return;
 };
 
 export const createJSReplacer = (config: ReplacerConfig) => {

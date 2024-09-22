@@ -1,7 +1,11 @@
 import { GoGoAST, NodePath } from "go-better-code";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
-import { createTool, hasCommentForIgnore, isIgnoreComment } from "./javascript";
+import { createTool } from "./javascript";
+import {
+    hasCommentForIgnore,
+    isIgnoreComment,
+} from "../utils/hasCommentForIgnore";
 function updateTextNode(
     ast: any,
     getNewValue: (oldContent: string) => string | null,
