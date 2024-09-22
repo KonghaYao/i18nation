@@ -66,14 +66,14 @@ export const createDefaultConfig = (config: ConfigFileType) => {
             }
             return config.templateReplacer(str, lang);
         },
-        attrReplacer(attrName, str, replaceAttrName) {
+        attrReplacer(attrName, str, tools) {
             if (str.trim().length === 0) return null;
             if (checkReplaced(str)) {
                 return null;
             }
             if (matchOneIgnoreRegExp(str)) return null;
             if (replaceAttr[attrName.toLocaleLowerCase()]) {
-                return config.attrReplacer(attrName, str, replaceAttrName);
+                return config.attrReplacer(attrName, str, tools);
             }
             return null;
         },

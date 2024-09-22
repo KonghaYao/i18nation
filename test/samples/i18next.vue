@@ -1,5 +1,6 @@
 <template>
     <section class="container">
+        <meta name='viewreport' content='width=device-width, initial-scale=1.0'/>
         <div class="error-bg">
             <!-- 抽取所有的文本内容 -->
             <p class="err-title">404 RightThisWay</p>

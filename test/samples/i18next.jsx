@@ -81,6 +81,7 @@ export default () => {
                     description="是一款精美的在线字体，可通过CSS Web引用直接使用。提供多种字体样式和设计，让您的网站更加独特和吸引人。快来体验AAA在线字体，为您的网站增添无限魅力。"
                     keywords="123232"
                 />
+                <meta name='viewreport' content='width=device-width, initial-scale=1.0'/>
                 <p class="err-title">404 RightThisWay</p>
                 <p class="err-msg">Soury,&nbsp;&nbsp;&nbsp; Invisible~</p>
                 <p class="err-msg"> {"info"} </p>

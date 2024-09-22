@@ -2,7 +2,7 @@ import { GoGoAST, NodePath } from "go-better-code";
 import { ReplacerConfig, Tools } from "./interface";
 import { checkAst, quoteString } from "../utils";
 import { getParentAttrName, getParentChain, getParentTagName } from "./html";
-import { ReplaceSpecialChars } from "../constants";
+import { allowMetaName, ReplaceSpecialChars } from "../constants";
 import { hasCommentForIgnore } from "../utils/hasCommentForIgnore";
 
 export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
@@ -11,6 +11,7 @@ export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
     const tools: Tools = {
         wrapperChar: `${originWrapperChar}${originWrapperChar}`,
         parentType: nodePath.parentPath.node.type,
+        nodePath,
     };
     return tools;
 };
@@ -24,6 +25,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                 const tools = createTool(nodePath);
                 const matchedText = match.str[0].value;
                 const pChain = getParentChain(nodePath);
+                const tagChain = getParentTagName(pChain);
                 const attrTag = pChain.find(
                     (i) => i.node.type === "JSXAttribute",
                 );
@@ -33,6 +35,20 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     /** @ts-ignore */
                     const attrName = attrTag.node.name.name;
                     if (hasCommentForIgnore(attrTag)) return null;
+
+                    // 处理 meta 标签 的特殊情况
+                    if (tagChain[0] === "meta") {
+                        const metaTag = pChain.find(
+                            (i) => i.node.type === "JSXElement",
+                        );
+                        const nameAttr = // @ts-ignore
+                            metaTag?.node.openingElement.attributes.find(
+                                (i: any) => i.name.name === "name",
+                            );
+                        if (!allowMetaName.includes(nameAttr.value.value)) {
+                            return null;
+                        }
+                    }
 
                     const replaceAttrName = (name: string) => {
                         /** @ts-ignore */

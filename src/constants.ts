@@ -11,3 +11,4 @@ export const ReplaceSpecialChars = {
         return str.replace(new RegExp(lineBreak, "g"), "\\n");
     },
 };
+export const allowMetaName = ["keywords", "description", "author"];

@@ -6,6 +6,7 @@ import {
     hasCommentForIgnore,
     isIgnoreComment,
 } from "../utils/hasCommentForIgnore";
+import { allowMetaName } from "../constants";
 function updateTextNode(
     ast: any,
     getNewValue: (oldContent: string) => string | null,
@@ -68,6 +69,8 @@ export const getParentTagName = (nodePaths: NodePath[]) => {
             if (i.node.type === "JSXFragment") {
                 // return i.node.children
             }
+            // @ts-ignore HTML ast 的解法
+            if (i.node.nodeType === "tag") return i.node.content.name;
         })
         .filter((i) => i);
 };
@@ -93,20 +96,20 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                 const astNode = nodePath.node;
 
                 // 忽略 html 标签
-                const parentChain = getParentTagName(getParentChain(nodePath));
-                const tagName = astNode.openingElement?.name.name;
+                const pChain = getParentChain(nodePath);
+                const tagChain = getParentTagName(pChain);
+                const tagName = tagChain[0];
                 const ignoreHTMLTag = config.ignore?.HTMLTag;
                 if (ignoreHTMLTag) {
                     if (ignoreHTMLTag?.includes(tagName)) return;
                     if (
-                        parentChain.some((tagName) =>
+                        tagChain.some((tagName) =>
                             ignoreHTMLTag?.includes(tagName),
                         )
                     ) {
                         return;
                     }
                 }
-
                 // @ts-ignore 标签属性遍历，当标签元素不包含属性的时候，astNode.content.attributes为undefined，需要使用 ?. 判断一下forEach
                 astNode.content?.attributes?.forEach((i) => {
                     if (i.key.content === "\r" || !i.value) return; // 过滤掉换行符、无值属性
@@ -121,6 +124,17 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                             i.key.content = name;
                         },
                     };
+                    // console.log(tagName);
+                    if (tagName === "meta") {
+                        const metaName = astNode.content.attributes.find(
+                            (i: any) => {
+                                return i.key.content === "name";
+                            },
+                        )?.value?.content;
+                        if (!allowMetaName.includes(metaName)) {
+                            return;
+                        }
+                    }
                     const newValue = config.attrReplacer(
                         attrName.toString(),
                         value,

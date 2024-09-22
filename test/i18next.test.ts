@@ -51,6 +51,9 @@ describe("vue template 测试", async () => {
             .include("satisfies string[]")
             .includes("忽略DOM文本");
     });
+    test("保持 meta 标签", () => {
+        expect(data).includes("content='width=device-width");
+    });
 });
 
 describe("jsx template 测试", async () => {
@@ -75,7 +78,7 @@ describe("jsx template 测试", async () => {
         );
     // let data = await doIt(JSXSource);
     let data = await doIt((await doIt(JSXSource)) as string);
-    console.log(data);
+    // console.log(data);
     // console.log(json)
     test("所有 key 在代码中存在", () => {
         Object.keys(json).forEach((key) => {
@@ -111,6 +114,9 @@ describe("jsx template 测试", async () => {
             .includes('const cant = "\\n"')
             .include("<span plant></span>")
             .includes(" ❌ ");
+    });
+    test("保持 meta 标签", () => {
+        expect(data).includes("content='width=device-width");
     });
     test("typescript 保持", () => {
         expect(data).include("satisfies string[]");
@@ -188,6 +194,9 @@ describe("astro template 测试", async () => {
             .includes('<script type="module">')
             .includes("const inline_script_replaced = i18next.t(")
             .includes("</script>");
+    });
+    test("保持 meta 标签", () => {
+        expect(data).includes("content='width=device-width");
     });
 });
 import AstroVoidHeader from "./samples/voidHeader.astro?raw";

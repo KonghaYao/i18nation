@@ -8,6 +8,7 @@ export interface Tools {
     wrapperChar: string;
     replaceAttrName?: (name: string) => void;
     parentType: string;
+    nodePath: NodePath;
 }
 
 export interface ReplacerConfig {
