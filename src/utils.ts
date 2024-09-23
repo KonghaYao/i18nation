@@ -4,8 +4,8 @@ export const isOneWord = (str: string) => {
     if (!str.trim()) return true;
     return /^[\u{21}-\u{FF}|\p{Emoji_Presentation}]+$/gu.test(str.trim());
 };
-export function quoteString(str: string | null, quoteType = "") {
-    if (str === null) return null;
+export function quoteString(str?: string | null, quoteType = "") {
+    if (str === null || str === undefined) return null;
     if (quoteType[0] === '"' && str.includes('"')) {
         quoteType = "''";
     }

@@ -5,13 +5,19 @@ import { getParentAttrName, getParentChain, getParentTagName } from "./html";
 import { allowMetaName, ReplaceSpecialChars } from "../constants";
 import { hasCommentForIgnore } from "../utils/hasCommentForIgnore";
 
-export const createTool = (nodePath: NodePath, defaultWrapperChar = '""') => {
+export const createTool = (
+    nodePath: NodePath,
+    config: ReplacerConfig,
+    defaultWrapperChar = '""',
+) => {
     // @ts-ignore
     const originWrapperChar = nodePath.node.extra?.raw[0] ?? defaultWrapperChar;
     const tools: Tools = {
         wrapperChar: `${originWrapperChar}${originWrapperChar}`,
         parentType: nodePath.parentPath.node.type,
         nodePath,
+        config,
+        quoteString,
     };
     return tools;
 };
@@ -22,7 +28,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
             .replace(`'$_$str'`, (match, nodePath) => {
                 if (hasCommentForIgnore(nodePath)) return null;
 
-                const tools = createTool(nodePath);
+                const tools = createTool(nodePath, config);
                 const matchedText = match.str[0].value;
                 const pChain = getParentChain(nodePath);
                 const tagChain = getParentTagName(pChain);
@@ -55,7 +61,6 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                         attrTag.node.name.name = name;
                     };
                     tools.replaceAttrName = replaceAttrName;
-                    // console.log(nodePath.parentPath.node.type, matchedText)
                     return quoteString(
                         config.attrReplacer(
                             attrName.toString(),
@@ -65,21 +70,21 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                         tools.wrapperChar,
                     );
                 }
-
                 if (
                     nodePath.parentPath.node.type === "ObjectProperty" &&
+                    // 是 value 而不是 key 属性
+                    nodePath.parentPath.node.value === nodePath.node &&
                     config.propertyReplacer
                 ) {
-                    return quoteString(
-                        config.propertyReplacer(
-                            /** @ts-ignore */
-                            nodePath.parentPath.node.key.name,
-                            matchedText,
-                            tools,
-                            nodePath,
-                        ),
-                        tools.wrapperChar,
+                    const key = nodePath.parentPath.node.key.value;
+                    const val = config.propertyReplacer(
+                        /** @ts-ignore */
+                        key,
+                        matchedText,
+                        tools,
+                        nodePath,
                     );
+                    return quoteString(val, tools.wrapperChar);
                 }
                 if (
                     nodePath.parentPath.node.type === "MemberExpression" ||
@@ -109,7 +114,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     if (hasCommentForIgnore(nodePath)) {
                         return null;
                     }
-                    const tools = createTool(nodePath);
+                    const tools = createTool(nodePath, config);
                     const nodePaths = getParentChain(nodePath);
                     if (
                         nodePaths

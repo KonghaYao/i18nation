@@ -118,6 +118,7 @@ export const createHTMLReplacer = (config: ReplacerConfig) => {
                     const tools = {
                         ...createTool(
                             nodePath,
+                            config,
                             i.startWrapper.content + i.endWrapper.content,
                         ), // TODO 暂时无用
                         replaceAttrName(name: string) {

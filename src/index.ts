@@ -77,6 +77,7 @@ export const createDefaultConfig = (config: ConfigFileType) => {
             }
             return null;
         },
+        propertyReplacer: config.propertyReplacer,
         ignore,
     };
     return defaultConfig;

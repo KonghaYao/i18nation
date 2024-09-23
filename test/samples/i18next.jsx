@@ -71,6 +71,10 @@ export default () => {
     const tsExpression = [] satisfies string[]
     
     import.meta.env.HELLO;
+    
+    const JSONDataLike = {
+        "need-to-be-extracted": "data in json like"
+    }
     return (
         <section class="container">
             <div class="error-bg">

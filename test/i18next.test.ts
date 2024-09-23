@@ -73,12 +73,26 @@ describe("jsx template 测试", async () => {
                     createStringSlot(key) {
                         return `{${key}}`;
                     },
+                    propertyReplacer(name, str, tools) {
+                        if (name === "need-to-be-extracted") {
+                            const replaced = tools.config.stringReplacer(
+                                str,
+                                "js",
+                                tools,
+                            );
+                            return tools.quoteString(
+                                replaced,
+                                tools.wrapperChar,
+                            );
+                        }
+                    },
                 }),
             }),
         );
     // let data = await doIt(JSXSource);
-    let data = await doIt((await doIt(JSXSource)) as string);
-    // console.log(data);
+    const data1 = (await doIt(JSXSource)) as string;
+    let data = await doIt(data1);
+    console.log(data);
     // console.log(json)
     test("所有 key 在代码中存在", () => {
         Object.keys(json).forEach((key) => {
@@ -96,7 +110,8 @@ describe("jsx template 测试", async () => {
             .includes("title={i18next.t")
             .includes("keywords={i18next.t")
             .includes("content={i18next.t")
-            .includes("description={i18next.t");
+            .includes("description={i18next.t")
+            .includes('"need-to-be-extracted": i18next.t');
     });
     test("import 保持", () => {
         expect(data)
