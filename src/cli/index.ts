@@ -1,6 +1,7 @@
 import { loadConfig } from "c12";
 import { doI18nExtract } from "./doI18nExtract";
 import { I18NationConfig } from "./I18NationConfig";
+/** @ts-ignore */
 import { defineCommand } from "citty";
 import { doI18nPrune } from "./doI18nPrune";
 

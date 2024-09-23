@@ -76,6 +76,7 @@ export const createJSReplacer = (config: ReplacerConfig) => {
                     nodePath.parentPath.node.value === nodePath.node &&
                     config.propertyReplacer
                 ) {
+                    /** @ts-ignore */
                     const key = nodePath.parentPath.node.key.value;
                     const val = config.propertyReplacer(
                         /** @ts-ignore */

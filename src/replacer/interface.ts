@@ -1,4 +1,5 @@
 import { NodePath } from "go-better-code";
+import { quoteString } from "../utils";
 
 export interface Tools {
     /**
@@ -9,6 +10,8 @@ export interface Tools {
     replaceAttrName?: (name: string) => void;
     parentType: string;
     nodePath: NodePath;
+    config: ReplacerConfig;
+    quoteString: typeof quoteString;
 }
 
 export interface ReplacerConfig {
