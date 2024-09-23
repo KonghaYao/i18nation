@@ -23,6 +23,7 @@
     "license": "ISC",
     "dependencies": {
         "c12": "^1.11.2",
+        "citty": "^0.1.6",
         "fs-extra": "^11.2.0",
         "glob": "^11.0.0",
         "go-better-code": "^1.1.1",

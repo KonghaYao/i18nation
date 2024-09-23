@@ -11,6 +11,9 @@ importers:
       c12:
         specifier: ^1.11.2
         version: 1.11.2
+      citty:
+        specifier: ^0.1.6
+        version: 0.1.6
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0

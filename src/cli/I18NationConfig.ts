@@ -25,6 +25,15 @@ export interface I18NationConfig extends Omit<PresetConfig, "filename"> {
          */
         indent?: number;
     };
+    /** 删减 json 时的配置 */
+    prune?: {
+        /** 删减时的源代码范围 
+         * @default src
+        */
+        src?: string | string[];
+        /** 删减时的 json 文件范围 */
+        json: string | string[];
+    };
     /** 将不会进行写入操作 */
     dryRun: boolean;
 }
