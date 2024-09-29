@@ -18,16 +18,28 @@ export const main = defineCommand({
         },
     },
     async run({ args }) {
-        return loadConfig<I18NationConfig>({
-            name: "i18nation",
-        }).then((res) => {
-            console.log("✅ config file used: ", res.configFile);
+        const files = await Promise.all([
+            loadConfig<I18NationConfig>({
+                name: "i18nation",
+            }),
+            // 兼容 i18nrc 文件内的 i18nation 字段
+            loadConfig<I18NationConfig>({
+                name: "",
+                configFile: "i18nrc",
+            }).then(res=>{
+                // @ts-ignore
+                res.config = res.config?.i18nation || {}
+                return res
+            }),
+        ]);
+        const res = files.find((i) => i.config.src);
+        if(!res?.configFile)   return console.log("❌ config file not found");
+        console.log("✅ config file used: ", res.configFile);
 
-            if (args.prune) {
-                return doI18nPrune(res.config);
-            }
+        if (args.prune) {
+            return doI18nPrune(res.config);
+        }
 
-            return doI18nExtract(res.config);
-        });
+        return doI18nExtract(res.config);
     },
 });
