@@ -1,6 +1,8 @@
 import { I18NationConfig } from "./I18NationConfig";
 import fs from "fs-extra";
 import { unflatten } from "safe-flat";
+
+/** 向 json 文件中注入 i18n 数据 */
 export async function injectJSON(
     path: string,
     newJSON: Record<string, any>,
@@ -19,26 +21,4 @@ export async function injectJSON(
     }
     // console.log(config.mode, resultJSON);
     return fs.outputFile(path, JSON.stringify(resultJSON, null, config.indent));
-}
-function deepMerge(target: any, source: any) {
-    // 遍历 source 中的所有属性
-    Object.keys(source).forEach((key) => {
-        // 检查 source[key] 是否是一个对象
-        if (
-            source[key] &&
-            typeof source[key] === "object" &&
-            !Array.isArray(source[key])
-        ) {
-            // 如果 target[key] 不存在或者不是一个对象，则创建一个空对象
-            if (!target[key] || typeof target[key] !== "object") {
-                target[key] = {};
-            }
-            // 递归调用 deepMerge
-            deepMerge(target[key], source[key]);
-        } else {
-            // 如果不是对象，则直接赋值
-            target[key] = source[key];
-        }
-    });
-    return target;
 }

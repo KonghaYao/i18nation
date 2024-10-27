@@ -25,15 +25,16 @@ export const main = defineCommand({
             // 兼容 i18nrc 文件内的 i18nation 字段
             loadConfig<I18NationConfig>({
                 name: "",
-                configFile: "i18nrc",
-            }).then(res=>{
+                configFile: ".i18nrc",
+                rcFile: false,
+            }).then((res) => {
                 // @ts-ignore
-                res.config = res.config?.i18nation || {}
-                return res
+                res.config = res.config?.i18nation || {};
+                return res;
             }),
         ]);
         const res = files.find((i) => i.config.src);
-        if(!res?.configFile)   return console.log("❌ config file not found");
+        if (!res?.configFile) return console.log("❌ config file not found");
         console.log("✅ config file used: ", res.configFile);
 
         if (args.prune) {
